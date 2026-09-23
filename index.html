@@ -1,1 +1,954 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tsuki Ads & More | Directorio de Servidores Global</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Firebase SDKs (Compat v9) para sincronización global en tiempo real -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Configuración inicial de temas (incluyendo AMOLED)
+        const themes = {
+            blue: {
+                bg: '#070A10',
+                card: '#0F1626',
+                primary: '#3B82F6',
+                primaryHover: '#2563EB',
+                neon: '#8B5CF6',
+                shadow: 'rgba(59, 130, 246, 0.3)'
+            },
+            purple: {
+                bg: '#070A10',
+                card: '#0F1626',
+                primary: '#A855F7',
+                primaryHover: '#9333EA',
+                neon: '#EC4899',
+                shadow: 'rgba(168, 85, 247, 0.3)'
+            },
+            green: {
+                bg: '#070A10',
+                card: '#0F1626',
+                primary: '#10B981',
+                primaryHover: '#059669',
+                neon: '#3B82F6',
+                shadow: 'rgba(16, 185, 129, 0.3)'
+            },
+            amoled: {
+                bg: '#000000',
+                card: '#0A0A0A',
+                primary: '#3B82F6',
+                primaryHover: '#2563EB',
+                neon: '#8B5CF6',
+                shadow: 'rgba(59, 130, 246, 0.2)'
+            }
+        };
+
+        let currentThemeKey = localStorage.getItem('tsuki_theme') || 'blue';
+
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: 'var(--theme-bg)',
+                        cardbg: 'var(--theme-card)',
+                        cardhover: '#151E33',
+                        gold: '#F59E0B',
+                        accent: 'var(--theme-accent)',
+                        accenthover: 'var(--theme-accent-hover)',
+                        neonpurple: 'var(--theme-neon)'
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 5s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-8px) rotate(0.5deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style id="theme-variables">
+        :root {
+            --theme-bg: #070A10;
+            --theme-card: #0F1626;
+            --theme-accent: #3B82F6;
+            --theme-accent-hover: #2563EB;
+            --theme-neon: #8B5CF6;
+        }
+    </style>
+    <style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .organic-card {
+            position: relative;
+            background: linear-gradient(145deg, var(--theme-card), rgba(7, 10, 16, 0.95));
+            backdrop-filter: blur(16px);
+            border-radius: 2rem;
+            border: 1px solid rgba(59, 130, 246, 0.12);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .organic-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--theme-accent);
+            box-shadow: 0 20px 40px -15px var(--theme-shadow, rgba(59, 130, 246, 0.25));
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
+</head>
+<body class="bg-darkbg text-gray-100 min-h-screen flex flex-col font-sans selection:bg-accent selection:text-white relative overflow-x-hidden">
+
+    <!-- Canvas de fondo -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Header -->
+    <header class="border-b border-gray-800/60 bg-cardbg/75 backdrop-blur-xl sticky top-0 z-40 shadow-2xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-3.5 cursor-pointer group animate-float" ondblclick="triggerHiddenAdmin()" title="Doble clic para acceso admin">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-accent to-neonpurple flex items-center justify-center text-white shadow-lg shadow-accent/30 group-hover:scale-105 transition duration-300">
+                        <i class="fa-solid fa-rocket text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="font-extrabold text-lg tracking-wider text-white group-hover:text-accent transition">Tsuki Ads</span>
+                        <span class="text-xs text-neonpurple block font-semibold tracking-widest uppercase">& More</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Selector de Temas -->
+            <div class="hidden md:flex items-center space-x-2 bg-darkbg/90 p-1.5 rounded-2xl border border-gray-800 shadow-inner">
+                <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider px-2"><i class="fa-solid fa-palette mr-1 text-accent"></i> Tema:</span>
+                <button onclick="setTheme('blue')" class="w-6 h-6 rounded-xl bg-blue-500 hover:scale-110 transition shadow-md border border-white/20" title="Cyber Blue"></button>
+                <button onclick="setTheme('purple')" class="w-6 h-6 rounded-xl bg-purple-500 hover:scale-110 transition shadow-md border border-white/20" title="Neon Purple"></button>
+                <button onclick="setTheme('green')" class="w-6 h-6 rounded-xl bg-emerald-500 hover:scale-110 transition shadow-md border border-white/20" title="Emerald Green"></button>
+                <button onclick="setTheme('amoled')" class="w-6 h-6 rounded-xl bg-black hover:scale-110 transition shadow-md border border-gray-700 flex items-center justify-center text-[10px] text-gray-300" title="Modo AMOLED Puro"><i class="fa-solid fa-moon"></i></button>
+            </div>
+
+            <div class="flex items-center space-x-2.5">
+                <button onclick="openRulesModal()" class="bg-darkbg hover:bg-gray-800 text-gray-300 hover:text-white px-3.5 py-2.5 rounded-2xl text-xs font-bold transition border border-gray-700/80 flex items-center space-x-1.5 shadow" title="Reglas">
+                    <i class="fa-solid fa-book-open text-accent"></i>
+                    <span class="hidden sm:inline">Reglas</span>
+                </button>
+                <button onclick="openAddServerModal()" class="bg-gradient-to-r from-accent via-blue-600 to-neonpurple hover:opacity-95 text-white px-4 sm:px-6 py-2.5 rounded-2xl text-xs sm:text-sm font-bold transition-all transform hover:scale-105 shadow-xl shadow-accent/30 flex items-center space-x-2">
+                    <i class="fa-solid fa-plus-circle text-sm"></i>
+                    <span>Publicar Servidor</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Barra de Anuncios Globales -->
+    <div class="bg-cardbg/50 border-b border-gray-800/40 py-2 relative z-10 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 flex items-center justify-between text-xs text-gray-400">
+            <div class="flex items-center space-x-2 truncate">
+                <span class="bg-accent/20 text-accent font-extrabold px-2 py-0.5 rounded-md text-[10px] border border-accent/30"><i class="fa-solid fa-bullhorn"></i> AVISO GLOBAL</span>
+                <span id="global-announcement-bar" class="truncate">Cargando aviso global...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-8 space-y-8 relative z-10">
+        
+        <!-- Sección Superior: VIP y Servidor del Día -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            <div class="lg:col-span-8 organic-card p-6 flex flex-col justify-between shadow-2xl relative overflow-hidden group border-2 border-accent/40">
+                <div class="absolute -right-10 -bottom-10 text-accent/5 pointer-events-none transform group-hover:scale-125 transition duration-700">
+                    <i class="fa-solid fa-crown text-[12rem]"></i>
+                </div>
+                <div class="flex items-center justify-between mb-5 relative z-10 flex-wrap gap-3">
+                    <span class="text-xs bg-gradient-to-r from-accent to-neonpurple text-white font-extrabold px-4 py-1.5 rounded-full shadow-lg flex items-center space-x-2 uppercase tracking-wider animate-pulse-slow">
+                        <i class="fa-solid fa-crown text-gold"></i>
+                        <span>Espacio VIP Patrocinado Global</span>
+                    </span>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="scrollBanners(-1)" class="w-9 h-9 rounded-full bg-darkbg/90 hover:bg-accent text-gray-300 hover:text-white flex items-center justify-center border border-gray-700 transition shadow"><i class="fa-solid fa-chevron-left text-xs"></i></button>
+                        <button onclick="scrollBanners(1)" class="w-9 h-9 rounded-full bg-darkbg/90 hover:bg-accent text-gray-300 hover:text-white flex items-center justify-center border border-gray-700 transition shadow"><i class="fa-solid fa-chevron-right text-xs"></i></button>
+                    </div>
+                </div>
+                <div id="sponsored-banners-container" class="relative z-10 flex space-x-4 overflow-x-auto no-scrollbar scroll-smooth py-1"></div>
+            </div>
+
+            <div class="lg:col-span-4 organic-card p-6 flex flex-col justify-between shadow-2xl border border-gold/30">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs bg-gold/15 text-gold font-bold px-3 py-1 rounded-full flex items-center space-x-2 border border-gold/30">
+                        <i class="fa-solid fa-award"></i>
+                        <span>Servidor del Día</span>
+                    </span>
+                    <span id="sod-votes" class="text-xs text-gray-400 font-semibold bg-darkbg px-2.5 py-1 rounded-full">0 votos</span>
+                </div>
+                <div id="server-of-the-day-content" class="flex items-center space-x-4 my-auto py-2">
+                    <div class="w-14 h-14 rounded-2xl bg-darkbg border border-gray-700 flex items-center justify-center text-gray-500 flex-shrink-0">
+                        <i class="fa-solid fa-server text-lg"></i>
+                    </div>
+                    <div class="truncate">
+                        <h4 class="font-bold text-white text-sm">Sin servidor destacado</h4>
+                        <p class="text-xs text-gray-500 mt-0.5">Gana votos globales para aparecer aquí.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Podio Top 3 -->
+        <section class="organic-card p-6 shadow-2xl">
+            <h2 class="text-xs font-extrabold uppercase tracking-widest text-gray-400 mb-5 flex items-center space-x-2.5">
+                <div class="w-7 h-7 rounded-full bg-gold/20 text-gold flex items-center justify-center">
+                    <i class="fa-solid fa-trophy text-xs"></i>
+                </div>
+                <span>Podio Top 3 Global</span>
+            </h2>
+            <div id="podium-container" class="grid grid-cols-1 sm:grid-cols-3 gap-4"></div>
+        </section>
+
+        <!-- Buscador, Filtros y Estadísticas -->
+        <div class="organic-card p-4 sm:p-5 flex flex-col lg:flex-row gap-4 items-center justify-between shadow-xl">
+            <div class="relative w-full lg:w-80 group">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400 group-focus-within:text-accent transition">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </span>
+                <input type="text" id="search-input" oninput="renderServers()" placeholder="Explorar servidores globales..." class="w-full bg-darkbg/90 border border-gray-700/80 rounded-2xl pl-11 pr-4 py-3 text-sm text-white focus:outline-none focus:border-accent focus:ring-4 focus:ring-accent/15 transition shadow-inner">
+            </div>
+
+            <div class="flex items-center space-x-2.5 w-full lg:w-auto overflow-x-auto no-scrollbar pb-1 lg:pb-0" id="category-filters">
+                <button onclick="filterCategory('todos')" class="cat-btn px-4 py-2.5 rounded-2xl text-xs font-bold bg-gradient-to-r from-accent to-neonpurple text-white transition-all transform hover:scale-105 whitespace-nowrap shadow-lg shadow-accent/25">Todos</button>
+                <button onclick="filterCategory('Comunidad')" class="cat-btn px-4 py-2.5 rounded-2xl text-xs font-bold bg-darkbg/90 text-gray-400 hover:bg-gray-800 hover:text-white transition-all whitespace-nowrap border border-gray-800">Comunidad</button>
+                <button onclick="filterCategory('Gaming')" class="cat-btn px-4 py-2.5 rounded-2xl text-xs font-bold bg-darkbg/90 text-gray-400 hover:bg-gray-800 hover:text-white transition-all whitespace-nowrap border border-gray-800">Gaming</button>
+                <button onclick="filterCategory('Bots')" class="cat-btn px-4 py-2.5 rounded-2xl text-xs font-bold bg-darkbg/90 text-gray-400 hover:bg-gray-800 hover:text-white transition-all whitespace-nowrap border border-gray-800">Bots</button>
+                <button onclick="filterCategory('Anime')" class="cat-btn px-4 py-2.5 rounded-2xl text-xs font-bold bg-darkbg/90 text-gray-400 hover:bg-gray-800 hover:text-white transition-all whitespace-nowrap border border-gray-800">Anime</button>
+            </div>
+
+            <div class="flex items-center space-x-3 bg-darkbg/90 px-4 py-2.5 rounded-2xl border border-gray-800 text-xs flex-shrink-0 shadow-inner">
+                <div class="flex items-center space-x-1.5" title="Total Servidores">
+                    <i class="fa-solid fa-server text-accent"></i>
+                    <span id="stat-servers" class="font-black text-white">0</span>
+                </div>
+                <span class="text-gray-700">|</span>
+                <div class="flex items-center space-x-1.5" title="Votos Totales">
+                    <i class="fa-solid fa-heart text-red-400"></i>
+                    <span id="stat-votes" class="font-black text-accent">0</span>
+                </div>
+                <span class="text-gray-700">|</span>
+                <div class="flex items-center space-x-1.5" title="Bumps Totales">
+                    <i class="fa-solid fa-rotate text-gold"></i>
+                    <span id="stat-bumps" class="font-black text-gold">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grilla de Servidores -->
+        <section class="animate-fade-in space-y-4">
+            <div class="flex items-center justify-between px-2">
+                <h2 class="text-base sm:text-lg font-extrabold text-white flex items-center space-x-2.5">
+                    <div class="w-8 h-8 rounded-2xl bg-accent/20 text-accent flex items-center justify-center">
+                        <i class="fa-solid fa-compass text-sm"></i>
+                    </div>
+                    <span>Directorio Global en Tiempo Real</span>
+                </h2>
+                <div class="text-xs text-gray-400 bg-cardbg px-3.5 py-1.5 rounded-full border border-gray-800">Sincronizado Cloud</div>
+            </div>
+            <div id="servers-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800/60 py-8 mt-16 bg-darkbg relative z-10 text-center">
+        <div class="max-w-7xl mx-auto px-4 text-xs text-gray-500 space-y-2">
+            <p class="font-semibold text-gray-400">Tsuki Ads & More</p>
+            <p>&copy; 2026. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- MODAL DE CLAVE DE ACCESO ADMIN -->
+    <div id="admin-login-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-4 animate-fade-in">
+        <div class="organic-card border border-gray-700 w-full max-w-sm p-6 space-y-5 shadow-2xl text-center relative">
+            <div class="w-14 h-14 rounded-2xl bg-accent/20 border border-accent/30 text-accent mx-auto flex items-center justify-center text-xl shadow-lg">
+                <i class="fa-solid fa-key"></i>
+            </div>
+            <div>
+                <h3 class="text-base font-bold text-white mb-1.5">Acceso de Administrador</h3>
+                <p class="text-xs text-gray-400 leading-relaxed">Introduce tu contraseña para entrar al panel.</p>
+            </div>
+            <form onsubmit="verifyAdminPassword(event)" class="space-y-3">
+                <input type="password" id="admin-password-input" placeholder="Contraseña..." required class="w-full bg-darkbg border border-gray-700 rounded-2xl px-4 py-2.5 text-xs text-white text-center focus:outline-none focus:border-accent transition shadow-inner">
+                <button type="submit" class="w-full bg-gradient-to-r from-accent to-neonpurple hover:opacity-95 text-white py-2.5 rounded-2xl text-xs font-bold transition shadow-lg shadow-accent/25">Verificar</button>
+            </form>
+            <button onclick="closeAdminLoginModal()" class="text-[10px] text-gray-500 hover:text-gray-300">Cancelar</button>
+        </div>
+    </div>
+
+    <!-- MODAL GENERAL DE AVISOS -->
+    <div id="custom-alert-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-4 animate-fade-in">
+        <div class="organic-card border border-gray-700 w-full max-w-sm p-6 space-y-5 shadow-2xl text-center relative">
+            <div id="alert-icon-container" class="w-14 h-14 rounded-2xl bg-accent/20 border border-accent/30 text-accent mx-auto flex items-center justify-center text-2xl shadow-lg">
+                <i class="fa-solid fa-bell" id="alert-icon"></i>
+            </div>
+            <div>
+                <h3 id="alert-title" class="text-base font-bold text-white mb-1.5">Aviso</h3>
+                <p id="alert-message" class="text-xs text-gray-300 leading-relaxed"></p>
+            </div>
+            <button onclick="closeCustomAlert()" class="w-full bg-gradient-to-r from-accent to-neonpurple hover:opacity-95 text-white py-3 rounded-2xl text-xs font-bold transition shadow-lg shadow-accent/25">Entendido</button>
+        </div>
+    </div>
+
+    <!-- Modal: Reglas -->
+    <div id="rules-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-4 animate-fade-in">
+        <div class="organic-card border border-gray-700 w-full max-w-lg p-6 space-y-5 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-gray-800 pb-4">
+                <h3 class="text-base sm:text-lg font-bold text-white flex items-center space-x-2.5">
+                    <div class="w-8 h-8 rounded-xl bg-accent/20 text-accent flex items-center justify-center">
+                        <i class="fa-solid fa-book-open text-xs"></i>
+                    </div>
+                    <span>Reglas de Publicación</span>
+                </h3>
+                <button onclick="closeRulesModal()" class="w-8 h-8 rounded-full bg-darkbg text-gray-400 hover:text-white flex items-center justify-center border border-gray-700 transition"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="space-y-3.5 text-xs text-gray-300 leading-relaxed">
+                <div class="bg-darkbg/80 p-3.5 rounded-2xl border border-gray-800 flex items-start space-x-3">
+                    <span class="bg-accent/20 text-accent w-6 h-6 rounded-full flex items-center justify-center font-bold flex-shrink-0 mt-0.5">1</span>
+                    <p><strong>Enlaces permanentes:</strong> Los enlaces de invitación de Discord deben ser permanentes.</p>
+                </div>
+                <div class="bg-darkbg/80 p-3.5 rounded-2xl border border-gray-800 flex items-start space-x-3">
+                    <span class="bg-accent/20 text-accent w-6 h-6 rounded-full flex items-center justify-center font-bold flex-shrink-0 mt-0.5">2</span>
+                    <p><strong>Contenido apto:</strong> No se permiten servidores con contenido explícito (NSFW) o estafas.</p>
+                </div>
+            </div>
+            <button onclick="closeRulesModal()" class="w-full bg-gradient-to-r from-accent to-neonpurple hover:opacity-95 text-white py-3 rounded-2xl text-xs font-bold transition shadow-lg shadow-accent/25">Entendido</button>
+        </div>
+    </div>
+
+    <!-- Modal: Publicar Servidor -->
+    <div id="add-server-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-4 animate-fade-in">
+        <div class="organic-card border border-gray-700 w-full max-w-md p-6 space-y-5 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-gray-800 pb-4">
+                <h3 class="text-base sm:text-lg font-bold text-white flex items-center space-x-2.5">
+                    <div class="w-8 h-8 rounded-xl bg-accent/20 text-accent flex items-center justify-center">
+                        <i class="fa-solid fa-rocket text-xs"></i>
+                    </div>
+                    <span>Publicar tu Servidor Global</span>
+                </h3>
+                <button onclick="closeAddServerModal()" class="w-8 h-8 rounded-full bg-darkbg text-gray-400 hover:text-white flex items-center justify-center border border-gray-700 transition"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="add-server-form" onsubmit="handleServerSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 mb-1.5">Nombre del Servidor</label>
+                    <input type="text" id="srv-name" required class="w-full bg-darkbg border border-gray-700 rounded-2xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-accent transition shadow-inner">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 mb-1.5">Enlace de Discord</label>
+                    <input type="url" id="srv-invite" placeholder="https://discord.gg/..." required class="w-full bg-darkbg border border-gray-700 rounded-2xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-accent transition shadow-inner">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 mb-1.5">Logo o Imagen</label>
+                    <input type="file" id="srv-file" accept="image/*" required class="w-full bg-darkbg border border-gray-700 rounded-2xl px-3 py-2 text-xs text-gray-300 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-accent file:text-white hover:file:bg-accenthover cursor-pointer">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 mb-1.5">Categoría</label>
+                    <select id="srv-category" class="w-full bg-darkbg border border-gray-700 rounded-2xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-accent transition shadow-inner">
+                        <option value="Comunidad">Comunidad</option>
+                        <option value="Gaming">Gaming</option>
+                        <option value="Bots">Bots</option>
+                        <option value="Anime">Anime</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 mb-1.5">Descripción</label>
+                    <textarea id="srv-desc" rows="2" required class="w-full bg-darkbg border border-gray-700 rounded-2xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-accent transition shadow-inner"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-accent via-blue-600 to-neonpurple hover:opacity-95 text-white py-3 rounded-2xl font-bold text-sm transition-all shadow-xl shadow-accent/25 transform hover:scale-[1.02]">Publicar Globalmente</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Detalle y Reseñas Globales -->
+    <div id="server-detail-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-4 animate-fade-in">
+        <div class="organic-card border border-gray-700 w-full max-w-2xl p-6 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-gray-800 pb-4">
+                <div class="flex items-center space-x-3.5">
+                    <img id="detail-img" src="" class="w-12 h-12 rounded-2xl object-cover border border-gray-700 shadow">
+                    <div>
+                        <h3 id="detail-name" class="text-base sm:text-lg font-bold text-white">Nombre</h3>
+                        <span id="detail-category" class="text-[10px] bg-accent/20 text-accent px-2.5 py-0.5 rounded-full font-bold border border-accent/30">Categoría</span>
+                    </div>
+                </div>
+                <button onclick="closeServerDetailModal()" class="w-8 h-8 rounded-full bg-darkbg text-gray-400 hover:text-white flex items-center justify-center border border-gray-700 transition"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="space-y-4">
+                <div>
+                    <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1.5">Acerca de la comunidad</h4>
+                    <p id="detail-desc" class="text-xs sm:text-sm text-gray-300 leading-relaxed bg-darkbg/60 p-4 rounded-2xl border border-gray-800"></p>
+                </div>
+
+                <div>
+                    <a id="detail-invite-btn" href="#" target="_blank" class="w-full bg-gradient-to-r from-accent to-neonpurple text-white py-3 rounded-2xl font-bold text-xs transition flex items-center justify-center space-x-2 shadow-lg shadow-accent/20">
+                        <i class="fa-brands fa-discord text-sm"></i>
+                        <span>Unirse a Discord</span>
+                    </a>
+                </div>
+
+                <div class="border-t border-gray-800 pt-4 space-y-4">
+                    <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Reseñas Globales</h4>
+                    <div id="detail-reviews-list" class="space-y-2.5 max-h-40 overflow-y-auto no-scrollbar"></div>
+                    
+                    <form onsubmit="handleReviewSubmit(event)" class="flex gap-2 pt-1">
+                        <input type="text" id="review-input" placeholder="Escribe una reseña..." required class="flex-grow bg-darkbg border border-gray-700 rounded-2xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-accent">
+                        <button type="submit" class="bg-accent hover:bg-accenthover text-white px-5 py-2.5 rounded-2xl font-bold text-xs transition">Enviar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel de Administración -->
+    <div id="admin-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-4 animate-fade-in">
+        <div class="organic-card border border-gray-700 w-full max-w-4xl p-6 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-gray-800 pb-4">
+                <h3 class="text-lg sm:text-xl font-bold text-white flex items-center space-x-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-accent/20 text-accent flex items-center justify-center">
+                        <i class="fa-solid fa-lock text-sm"></i>
+                    </div>
+                    <span>Panel de Control Global Admin</span>
+                </h3>
+                <button onclick="closeAdminModal()" class="w-8 h-8 rounded-full bg-darkbg text-gray-400 hover:text-white flex items-center justify-center border border-gray-700 transition"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div class="bg-darkbg/80 p-4 rounded-2xl border border-gray-800 text-center shadow-inner">
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider block mb-1">Servidores</span>
+                    <span id="admin-stat-servers" class="text-xl font-black text-white">0</span>
+                </div>
+                <div class="bg-darkbg/80 p-4 rounded-2xl border border-gray-800 text-center shadow-inner">
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider block mb-1">Votos</span>
+                    <span id="admin-stat-votes" class="text-xl font-black text-accent">0</span>
+                </div>
+                <div class="bg-darkbg/80 p-4 rounded-2xl border border-gray-800 text-center shadow-inner">
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider block mb-1">Bumps</span>
+                    <span id="admin-stat-bumps" class="text-xl font-black text-gold">0</span>
+                </div>
+                <div class="bg-darkbg/80 p-4 rounded-2xl border border-gray-800 text-center shadow-inner">
+                    <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider block mb-1">VIPs</span>
+                    <span id="admin-stat-vips" class="text-xl font-black text-neonpurple">0</span>
+                </div>
+            </div>
+
+            <div class="bg-darkbg/80 p-5 rounded-2xl border border-gray-800 space-y-4 shadow-inner">
+                <h4 class="font-bold text-sm text-white flex items-center space-x-2">
+                    <i class="fa-solid fa-server text-accent"></i>
+                    <span>Moderar Servidores Globales</span>
+                </h4>
+                <div class="max-h-60 overflow-y-auto no-scrollbar space-y-2.5" id="admin-servers-list"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-darkbg/80 p-5 rounded-2xl border border-gray-800 space-y-4 shadow-inner">
+                    <h4 class="font-bold text-sm text-white flex items-center space-x-2">
+                        <i class="fa-solid fa-star text-accent"></i>
+                        <span>Gestionar Banners VIP Globales</span>
+                    </h4>
+                    <form id="banner-form" onsubmit="handleBannerSubmit(event)" class="space-y-3">
+                        <div>
+                            <label class="block text-xs text-gray-400 mb-1">Título VIP</label>
+                            <input type="text" id="banner-title" required class="w-full bg-cardbg border border-gray-700 rounded-xl px-3 py-2 text-xs text-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-400 mb-1">Imagen</label>
+                            <input type="file" id="banner-file" accept="image/*" required class="w-full bg-cardbg border border-gray-700 rounded-xl px-3 py-2 text-xs text-gray-300 file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-accent file:text-white cursor-pointer">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-400 mb-1">Enlace</label>
+                            <input type="url" id="banner-link" required class="w-full bg-cardbg border border-gray-700 rounded-xl px-3 py-2 text-xs text-white">
+                        </div>
+                        <button type="submit" class="w-full bg-accent hover:bg-accenthover text-white py-2.5 rounded-xl font-bold text-xs transition shadow">Publicar VIP Global</button>
+                    </form>
+                </div>
+
+                <div class="bg-darkbg/80 p-5 rounded-2xl border border-gray-800 space-y-4 shadow-inner">
+                    <h4 class="font-bold text-sm text-white flex items-center space-x-2">
+                        <i class="fa-solid fa-bullhorn text-accent"></i>
+                        <span>Anuncio Global</span>
+                    </h4>
+                    <form id="announcement-form" onsubmit="handleAnnouncementSubmit(event)" class="space-y-3">
+                        <div>
+                            <label class="block text-xs text-gray-400 mb-1">Mensaje</label>
+                            <input type="text" id="announcement-input" required class="w-full bg-cardbg border border-gray-700 rounded-xl px-3 py-2 text-xs text-white">
+                        </div>
+                        <button type="submit" class="w-full bg-gradient-to-r from-accent to-neonpurple text-white py-2.5 rounded-xl font-bold text-xs transition shadow">Actualizar Aviso</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script de Firebase y Conexión Global en Tiempo Real -->
+    <script>
+        // CONFIGURACIÓN DE FIREBASE (Reemplaza con tus credenciales gratuitas de Firebase Console)
+        const firebaseConfig = {
+            apiKey: "TU_API_KEY",
+            authDomain: "tu-proyecto.firebaseapp.com",
+            projectId: "tu-proyecto",
+            storageBucket: "tu-proyecto.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456:web:abcde"
+        };
+
+        // Inicializar Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        let servers = [];
+        let banners = [];
+        let globalAnnouncement = "¡Bienvenido al directorio global!";
+        let adminPassword = 'admin123';
+        let currentActiveServerId = null;
+        let activeCategoryFilter = 'todos';
+
+        function setTheme(themeKey) {
+            currentThemeKey = themeKey;
+            localStorage.setItem('tsuki_theme', themeKey);
+            const theme = themes[themeKey];
+            const root = document.documentElement;
+            root.style.setProperty('--theme-bg', theme.bg);
+            root.style.setProperty('--theme-card', theme.card);
+            root.style.setProperty('--theme-accent', theme.primary);
+            root.style.setProperty('--theme-accent-hover', theme.primaryHover);
+            root.style.setProperty('--theme-neon', theme.neon);
+            root.style.setProperty('--theme-shadow', theme.shadow);
+        }
+        setTheme(currentThemeKey);
+
+        // ESCUCHAR CAMBIOS EN TIEMPO REAL DESDE LA NUBE (FIRESTORE)
+        function initRealtimeListeners() {
+            // Servidores en tiempo real
+            db.collection("servers").onSnapshot((snapshot) => {
+                servers = [];
+                snapshot.forEach((doc) => {
+                    servers.push({ id: doc.id, ...doc.data() });
+                });
+                renderAll();
+                renderAdminPanelData();
+            });
+
+            // Banners VIP en tiempo real
+            db.collection("banners").onSnapshot((snapshot) => {
+                banners = [];
+                snapshot.forEach((doc) => {
+                    banners.push({ id: doc.id, ...doc.data() });
+                });
+                renderBanners();
+                renderAdminPanelData();
+            });
+
+            // Aviso global en tiempo real
+            db.collection("settings").doc("announcement").onSnapshot((doc) => {
+                if (doc.exists) {
+                    globalAnnouncement = doc.data().text || "";
+                    document.getElementById('global-announcement-bar').innerText = globalAnnouncement;
+                }
+            });
+        }
+
+        initRealtimeListeners();
+
+        function triggerHiddenAdmin() {
+            document.getElementById('admin-login-modal').classList.remove('hidden');
+            document.getElementById('admin-password-input').value = '';
+            document.getElementById('admin-password-input').focus();
+        }
+
+        function closeAdminLoginModal() {
+            document.getElementById('admin-login-modal').classList.add('hidden');
+        }
+
+        function verifyAdminPassword(event) {
+            event.preventDefault();
+            const inputVal = document.getElementById('admin-password-input').value;
+            if (inputVal === adminPassword) {
+                closeAdminLoginModal();
+                renderAdminPanelData();
+                document.getElementById('admin-modal').classList.remove('hidden');
+            } else {
+                showCustomAlert('Contraseña incorrecta', 'Clave inválida.', 'fa-circle-xmark');
+            }
+        }
+
+        function closeAdminModal() { document.getElementById('admin-modal').classList.add('hidden'); }
+        function openRulesModal() { document.getElementById('rules-modal').classList.remove('hidden'); }
+        function closeRulesModal() { document.getElementById('rules-modal').classList.add('hidden'); }
+        function openAddServerModal() { document.getElementById('add-server-modal').classList.remove('hidden'); }
+        function closeAddServerModal() { document.getElementById('add-server-modal').classList.add('hidden'); }
+
+        function showCustomAlert(title, message, iconClass = 'fa-bell') {
+            document.getElementById('alert-title').innerText = title;
+            document.getElementById('alert-message').innerText = message;
+            document.getElementById('alert-icon').className = `fa-solid ${iconClass}`;
+            document.getElementById('custom-alert-modal').classList.remove('hidden');
+        }
+
+        function closeCustomAlert() { document.getElementById('custom-alert-modal').classList.add('hidden'); }
+
+        // PUBLICAR SERVIDOR GLOBALMENTE EN LA NUBE
+        function handleServerSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('srv-name').value;
+            const invite = document.getElementById('srv-invite').value;
+            const category = document.getElementById('srv-category').value;
+            const desc = document.getElementById('srv-desc').value;
+            const fileInput = document.getElementById('srv-file');
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const newServer = {
+                        name,
+                        invite,
+                        category,
+                        desc,
+                        img: e.target.result,
+                        votes: 0,
+                        bumps: 0,
+                        createdAt: Date.now(),
+                        lastBumpTime: Date.now(),
+                        reviews: []
+                    };
+                    
+                    db.collection("servers").add(newServer).then(() => {
+                        closeAddServerModal();
+                        document.getElementById('add-server-form').reset();
+                        showCustomAlert('¡Publicado Globalmente!', 'Tu servidor ya es visible para todos los usuarios en distintas PCs.');
+                    });
+                }
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+
+        // VOTAR GLOBALMENTE
+        function voteServer(id, event) {
+            event.stopPropagation();
+            const sRef = db.collection("servers").doc(id);
+            db.runTransaction((transaction) => {
+                return transaction.get(sRef).then((doc) => {
+                    if (!doc.exists) throw "El servidor no existe!";
+                    const newVotes = (doc.data().votes || 0) + 1;
+                    transaction.update(sRef, { votes: newVotes });
+                });
+            }).then(() => {
+                showCustomAlert('¡Voto Global Registrado!', 'Gracias por apoyar esta comunidad.', 'fa-heart');
+            });
+        }
+
+        // BUMP GLOBAL
+        function bumpServer(id, event) {
+            event.stopPropagation();
+            const sRef = db.collection("servers").doc(id);
+            db.runTransaction((transaction) => {
+                return transaction.get(sRef).then((doc) => {
+                    if (!doc.exists) throw "El servidor no existe!";
+                    const newBumps = (doc.data().bumps || 0) + 1;
+                    transaction.update(sRef, { bumps: newBumps, lastBumpTime: Date.now() });
+                });
+            }).then(() => {
+                showCustomAlert('¡Bump Global Exitoso!', 'El servidor ha subido de posición.', 'fa-rotate');
+            });
+        }
+
+        // ENVIAR RESEÑA GLOBAL
+        function handleReviewSubmit(event) {
+            event.preventDefault();
+            if (!currentActiveServerId) return;
+            const textInput = document.getElementById('review-input');
+            const reviewText = textInput.value.trim();
+            if (!reviewText) return;
+
+            const sRef = db.collection("servers").doc(currentActiveServerId);
+            db.runTransaction((transaction) => {
+                return transaction.get(sRef).then((doc) => {
+                    if (!doc.exists) throw "Servidor no encontrado";
+                    const currentReviews = doc.data().reviews || [];
+                    currentReviews.push({ text: reviewText, date: new Date().toLocaleDateString() });
+                    transaction.update(sRef, { reviews: currentReviews });
+                });
+            }).then(() => {
+                textInput.value = '';
+                const updated = servers.find(s => s.id === currentActiveServerId);
+                if(updated) renderReviews(updated);
+            });
+        }
+
+        function openServerDetail(id) {
+            currentActiveServerId = id;
+            const s = servers.find(item => item.id === id);
+            if (!s) return;
+
+            document.getElementById('detail-img').src = s.img;
+            document.getElementById('detail-name').innerText = s.name;
+            document.getElementById('detail-category').innerText = s.category;
+            document.getElementById('detail-desc').innerText = s.desc;
+            document.getElementById('detail-invite-btn').href = s.invite;
+
+            renderReviews(s);
+            document.getElementById('server-detail-modal').classList.remove('hidden');
+        }
+
+        function closeServerDetailModal() {
+            document.getElementById('server-detail-modal').classList.add('hidden');
+            currentActiveServerId = null;
+        }
+
+        function renderReviews(s) {
+            const container = document.getElementById('detail-reviews-list');
+            container.innerHTML = '';
+            if (!s.reviews || s.reviews.length === 0) {
+                container.innerHTML = '<p class="text-[11px] text-gray-500 italic">No hay reseñas todavía.</p>';
+                return;
+            }
+            s.reviews.forEach(r => {
+                container.innerHTML += `
+                    <div class="bg-darkbg/90 p-2.5 rounded-xl border border-gray-800 text-xs flex justify-between items-center">
+                        <span class="text-gray-300">${r.text}</span>
+                        <span class="text-[10px] text-gray-500">${r.date}</span>
+                    </div>
+                `;
+            });
+        }
+
+        function deleteServerByAdmin(id) {
+            if (confirm('¿Eliminar este servidor globalmente?')) {
+                db.collection("servers").doc(id).delete().then(() => {
+                    showCustomAlert('Eliminado', 'El servidor fue removido globalmente.', 'fa-trash');
+                });
+            }
+        }
+
+        function handleAnnouncementSubmit(event) {
+            event.preventDefault();
+            const text = document.getElementById('announcement-input').value;
+            db.collection("settings").doc("announcement").set({ text }).then(() => {
+                closeAdminModal();
+                showCustomAlert('Aviso Global', 'Actualizado para todos.');
+            });
+        }
+
+        function handleBannerSubmit(event) {
+            event.preventDefault();
+            const title = document.getElementById('banner-title').value;
+            const link = document.getElementById('banner-link').value;
+            const fileInput = document.getElementById('banner-file');
+            
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    db.collection("banners").add({ title, link, img: e.target.result }).then(() => {
+                        closeAdminModal();
+                        showCustomAlert('VIP', 'Banner global agregado.');
+                    });
+                }
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+
+        function renderBanners() {
+            const container = document.getElementById('sponsored-banners-container');
+            container.innerHTML = '';
+            if (banners.length === 0) {
+                container.innerHTML = '<p class="text-xs text-gray-500 py-4 px-2">No hay banners VIP activos.</p>';
+                return;
+            }
+            banners.forEach(b => {
+                container.innerHTML += `
+                    <div class="min-w-[260px] sm:min-w-[300px] bg-darkbg rounded-2xl p-3.5 border border-gray-700 flex items-center justify-between space-x-3 shadow-lg">
+                        <div class="flex items-center space-x-3 truncate">
+                            <img src="${b.img}" class="w-12 h-12 rounded-xl object-cover border border-gray-600 flex-shrink-0">
+                            <div class="truncate">
+                                <h5 class="text-xs font-bold text-white truncate">${b.title}</h5>
+                                <span class="text-[10px] text-gold font-semibold block"><i class="fa-solid fa-crown mr-1"></i> VIP</span>
+                            </div>
+                        </div>
+                        <a href="${b.link}" target="_blank" class="bg-gradient-to-r from-accent to-neonpurple hover:opacity-95 text-white px-3.5 py-2 rounded-xl text-[11px] font-bold shadow transition flex-shrink-0">Visitar</a>
+                    </div>
+                `;
+            });
+        }
+
+        function renderPodiumAndSOD() {
+            const podiumContainer = document.getElementById('podium-container');
+            podiumContainer.innerHTML = '';
+            let sorted = [...servers].sort((a, b) => (b.votes || 0) - (a.votes || 0));
+            
+            const sodContent = document.getElementById('server-of-the-day-content');
+            const sodVotes = document.getElementById('sod-votes');
+            if (sorted.length > 0 && sorted[0].votes > 0) {
+                const top = sorted[0];
+                sodVotes.innerText = `${top.votes} votos`;
+                sodContent.innerHTML = `
+                    <img src="${top.img}" class="w-14 h-14 rounded-2xl object-cover border border-gold/40 flex-shrink-0 shadow">
+                    <div class="truncate">
+                        <h4 class="font-bold text-white text-sm truncate">${top.name}</h4>
+                        <button onclick="openServerDetail('${top.id}')" class="text-[11px] text-gold hover:underline mt-0.5 block font-semibold">Ver &rarr;</button>
+                    </div>
+                `;
+            } else {
+                sodVotes.innerText = `0 votos`;
+                sodContent.innerHTML = `
+                    <div class="w-14 h-14 rounded-2xl bg-darkbg border border-gray-700 flex items-center justify-center text-gray-500 flex-shrink-0">
+                        <i class="fa-solid fa-server text-lg"></i>
+                    </div>
+                    <div class="truncate"><h4 class="font-bold text-white text-sm">Sin destacar</h4></div>
+                `;
+            }
+
+            if (sorted.length === 0) {
+                podiumContainer.innerHTML = '<p class="text-xs text-gray-500 col-span-full py-4 text-center">No hay servidores suficientes.</p>';
+                return;
+            }
+
+            const medals = ['text-gold', 'text-gray-300', 'text-amber-600'];
+            const bgMedals = ['border-gold/40 bg-gold/5', 'border-gray-500/40 bg-gray-500/5', 'border-amber-600/40 bg-amber-600/5'];
+
+            for (let i = 0; i < Math.min(3, sorted.length); i++) {
+                const s = sorted[i];
+                podiumContainer.innerHTML += `
+                    <div onclick="openServerDetail('${s.id}')" class="organic-card p-4 flex items-center space-x-3.5 cursor-pointer border ${bgMedals[i]} shadow-lg">
+                        <div class="w-10 h-10 rounded-xl bg-darkbg flex items-center justify-center ${medals[i]} font-black text-sm flex-shrink-0 border border-gray-700">#${i + 1}</div>
+                        <img src="${s.img}" class="w-11 h-11 rounded-xl object-cover border border-gray-700 flex-shrink-0">
+                        <div class="truncate">
+                            <h5 class="font-bold text-white text-xs truncate">${s.name}</h5>
+                            <span class="text-[10px] text-gray-400 block"><i class="fa-solid fa-heart text-red-400 mr-1"></i> ${s.votes || 0}</span>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function filterCategory(cat) {
+            activeCategoryFilter = cat;
+            const buttons = document.querySelectorAll('#category-filters button');
+            buttons.forEach(btn => {
+                if (btn.innerText.toLowerCase() === cat.toLowerCase() || (cat === 'todos' && btn.innerText.toLowerCase() === 'todos')) {
+                    btn.className = "cat-btn px-4 py-2.5 rounded-2xl text-xs font-bold bg-gradient-to-r from-accent to-neonpurple text-white transition-all transform hover:scale-105 whitespace-nowrap shadow-lg shadow-accent/25";
+                } else {
+                    btn.className = "cat-btn px-4 py-2.5 rounded-2xl text-xs font-bold bg-darkbg/90 text-gray-400 hover:bg-gray-800 hover:text-white transition-all whitespace-nowrap border border-gray-800";
+                }
+            });
+            renderServers();
+        }
+
+        function renderServers() {
+            const grid = document.getElementById('servers-grid');
+            const search = document.getElementById('search-input').value.toLowerCase();
+            grid.innerHTML = '';
+            
+            const filtered = servers.filter(s => {
+                const matchesSearch = s.name.toLowerCase().includes(search) || s.desc.toLowerCase().includes(search);
+                const matchesCat = activeCategoryFilter === 'todos' || s.category === activeCategoryFilter;
+                return matchesSearch && matchesCat;
+            });
+            
+            if (filtered.length === 0) {
+                grid.innerHTML = '<p class="text-xs text-gray-500 col-span-full py-8 text-center">No se encontraron servidores.</p>';
+                return;
+            }
+
+            filtered.forEach(s => {
+                grid.innerHTML += `
+                    <div onclick="openServerDetail('${s.id}')" class="organic-card p-5 flex flex-col justify-between shadow-xl space-y-4 cursor-pointer">
+                        <div class="flex items-center space-x-3.5">
+                            <img src="${s.img}" class="w-12 h-12 rounded-2xl object-cover border border-gray-700 shadow flex-shrink-0">
+                            <div class="truncate">
+                                <h4 class="font-bold text-white text-sm truncate">${s.name}</h4>
+                                <span class="text-[10px] bg-accent/20 text-accent px-2.5 py-0.5 rounded-full font-bold border border-accent/30">${s.category}</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-300 line-clamp-2">${s.desc}</p>
+                        <div class="space-y-2 pt-2 border-t border-gray-800">
+                            <a href="${s.invite}" target="_blank" onclick="event.stopPropagation()" class="w-full bg-gradient-to-r from-accent to-neonpurple hover:opacity-95 text-white py-2 rounded-xl font-bold text-xs transition flex items-center justify-center space-x-1.5 shadow">
+                                <i class="fa-brands fa-discord"></i>
+                                <span>Unirse</span>
+                            </a>
+                            <div class="flex items-center justify-between text-xs gap-2 pt-1">
+                                <div class="flex items-center space-x-2">
+                                    <button onclick="voteServer('${s.id}', event)" class="bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 px-3 py-1.5 rounded-xl font-bold transition flex items-center space-x-1">
+                                        <i class="fa-solid fa-heart"></i>
+                                        <span>${s.votes || 0}</span>
+                                    </button>
+                                    <button onclick="bumpServer('${s.id}', event)" class="bg-gold/10 hover:bg-gold/20 text-gold border border-gold/30 px-3 py-1.5 rounded-xl font-bold transition flex items-center space-x-1">
+                                        <i class="fa-solid fa-rotate text-[10px]"></i>
+                                        <span>${s.bumps || 0}</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function updateGlobalStats() {
+            let totalVotes = servers.reduce((acc, s) => acc + (s.votes || 0), 0);
+            let totalBumps = servers.reduce((acc, s) => acc + (s.bumps || 0), 0);
+            document.getElementById('stat-servers').innerText = servers.length;
+            document.getElementById('stat-votes').innerText = totalVotes;
+            document.getElementById('stat-bumps').innerText = totalBumps;
+        }
+
+        function renderAdminPanelData() {
+            updateGlobalStats();
+            document.getElementById('admin-stat-vips').innerText = banners.length;
+            const listContainer = document.getElementById('admin-servers-list');
+            listContainer.innerHTML = '';
+            if (servers.length === 0) {
+                listContainer.innerHTML = '<p class="text-xs text-gray-500 py-3 text-center">No hay servidores registrados.</p>';
+                return;
+            }
+            servers.forEach(s => {
+                listContainer.innerHTML += `
+                    <div class="bg-cardbg p-3 rounded-xl border border-gray-800 flex items-center justify-between space-x-3">
+                        <div class="flex items-center space-x-3 truncate">
+                            <img src="${s.img}" class="w-10 h-10 rounded-xl object-cover border border-gray-700 flex-shrink-0">
+                            <div class="truncate">
+                                <h5 class="text-xs font-bold text-white truncate">${s.name}</h5>
+                                <span class="text-[10px] text-accent font-semibold">${s.category} &bull; ❤️ ${s.votes || 0}</span>
+                            </div>
+                        </div>
+                        <button onclick="deleteServerByAdmin('${s.id}')" class="w-8 h-8 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30 flex items-center justify-center border border-red-500/30 text-xs transition"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `;
+            });
+        }
+
+        function renderAll() {
+            renderBanners();
+            renderPodiumAndSOD();
+            renderServers();
+            updateGlobalStats();
+        }
+    </script>
+</body>
+</html>
