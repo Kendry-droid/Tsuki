@@ -1015,5 +1015,74 @@
         // Cargar datos globales automáticamente al iniciar
         loadDatabase();
     </script>
+    <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+  // Tus credenciales oficiales de Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyDjsself83gKC8tKM4-aR3TGb1jJ_G83cUQ",
+    authDomain: "tsuki-48ff3.firebaseapp.com",
+    projectId: "tsuki-48ff3",
+    storageBucket: "tsuki-48ff3.firebasestorage.app",
+    messagingSenderId: "1091816055923",
+    appId: "1:1091816055923:web:93c232ed3975c46f507606",
+    measurementId: "G-CRDE8YW8G6"
+  };
+
+  // Inicializar Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  // 1. Cargar servidores desde Firebase al abrir la página
+  window.loadServersFromFirebase = async function() {
+    try {
+      const querySnapshot = await getDocs(collection(db, "servers"));
+      let serversArray = [];
+      querySnapshot.forEach((docSnap) => {
+        serversArray.push({
+          firebaseId: docSnap.id,
+          ...docSnap.data()
+        });
+      });
+      
+      // Asignamos los datos a tu lista global
+      window.servers = serversArray;
+      
+      // Si tienes tu función para pintar la pantalla, la ejecutamos
+      if (typeof renderAll === 'function') {
+        renderAll();
+      }
+      console.log("¡Datos cargados correctamente desde Firebase!");
+    } catch (error) {
+      console.error("Error al cargar de Firebase:", error);
+    }
+  };
+
+  // 2. Guardar un nuevo servidor de forma global
+  window.saveServerToFirebase = async function(serverData) {
+    try {
+      await addDoc(collection(db, "servers"), {
+        id: serverData.id || Date.now(),
+        name: serverData.name,
+        invite: serverData.invite,
+        category: serverData.category,
+        desc: serverData.desc,
+        img: serverData.img,
+        votes: serverData.votes || 0,
+        bumps: serverData.bumps || 0
+      });
+      window.loadServersFromFirebase();
+      console.log("¡Servidor guardado globalmente en Firebase!");
+    } catch (error) {
+      console.error("Error al guardar en Firebase:", error);
+    }
+  };
+
+  // Cargar automáticamente al iniciar
+  window.addEventListener('DOMContentLoaded', () => {
+    window.loadServersFromFirebase();
+  });
+</script>
 </body>
 </html>
