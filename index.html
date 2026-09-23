@@ -43,7 +43,7 @@
             }
         };
 
-        let currentThemeKey = localStorage.getItem('tsuki_theme') || 'blue';
+        // (Se removió la duplicación de currentThemeKey de aquí)
 
         tailwind.config = {
             theme: {
@@ -119,14 +119,14 @@
 </head>
 <body class="bg-darkbg text-gray-100 min-h-screen flex flex-col font-sans selection:bg-accent selection:text-white relative overflow-x-hidden">
 
-    <!-- Canvas de partículas animadas[cite: 1] -->
+    <!-- Canvas de partículas animadas[cite: 1, 2] -->
     <canvas id="bg-canvas"></canvas>
 
-    <!-- Header con Selector de Temas, Reglas y Publicar[cite: 1] -->
+    <!-- Header con Selector de Temas, Reglas y Publicar[cite: 1, 2] -->
     <header class="border-b border-gray-800/60 bg-cardbg/75 backdrop-blur-xl sticky top-0 z-40 shadow-2xl">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
             
-            <!-- Logo y nombre[cite: 1] -->
+            <!-- Logo y nombre[cite: 1, 2] -->
             <div class="flex items-center space-x-4">
                 <div class="flex items-center space-x-3.5 cursor-pointer group animate-float" ondblclick="triggerHiddenAdmin()" title="Doble clic para acceso admin">
                     <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-accent to-neonpurple flex items-center justify-center text-white shadow-lg shadow-accent/30 group-hover:scale-105 transition duration-300">
@@ -139,7 +139,7 @@
                 </div>
             </div>
 
-            <!-- Centro: Selector de Tema Interactivo[cite: 1] -->
+            <!-- Centro: Selector de Tema Interactivo[cite: 1, 2] -->
             <div class="hidden md:flex items-center space-x-2 bg-darkbg/90 p-1.5 rounded-2xl border border-gray-800 shadow-inner">
                 <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider px-2"><i class="fa-solid fa-palette mr-1 text-accent"></i> Tema:</span>
                 <button onclick="setTheme('blue')" class="w-6 h-6 rounded-xl bg-blue-500 hover:scale-110 transition shadow-md border border-white/20" title="Cyber Blue"></button>
@@ -148,7 +148,7 @@
                 <button onclick="setTheme('amoled')" class="w-6 h-6 rounded-xl bg-black hover:scale-110 transition shadow-md border border-gray-700 flex items-center justify-center text-[10px] text-gray-300" title="Modo AMOLED Puro"><i class="fa-solid fa-moon"></i></button>
             </div>
 
-            <!-- Acciones Derecha[cite: 1] -->
+            <!-- Acciones Derecha[cite: 1, 2] -->
             <div class="flex items-center space-x-2.5">
                 <button onclick="openRulesModal()" class="bg-darkbg hover:bg-gray-800 text-gray-300 hover:text-white px-3.5 py-2.5 rounded-2xl text-xs font-bold transition border border-gray-700/80 flex items-center space-x-1.5 shadow" title="Reglas">
                     <i class="fa-solid fa-book-open text-accent"></i>
@@ -162,7 +162,7 @@
         </div>
     </header>
 
-    <!-- Barra de Anuncios[cite: 1] -->
+    <!-- Barra de Anuncios[cite: 1, 2] -->
     <div class="bg-cardbg/50 border-b border-gray-800/40 py-2 relative z-10 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 flex items-center justify-between text-xs text-gray-400">
             <div class="flex items-center space-x-2 truncate">
@@ -178,12 +178,12 @@
         </div>
     </div>
 
-    <!-- Main Content[cite: 1] -->
+    <!-- Main Content[cite: 1, 2] -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-8 space-y-8 relative z-10">
         
-        <!-- Sección Superior: VIP Carrusel y Servidor del Día[cite: 1] -->
+        <!-- Sección Superior: VIP Carrusel y Servidor del Día[cite: 1, 2] -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-            <!-- Carrusel VIP[cite: 1] -->
+            <!-- Carrusel VIP[cite: 1, 2] -->
             <div class="lg:col-span-8 organic-card p-6 flex flex-col justify-between shadow-2xl relative overflow-hidden group border-2 border-accent/40">
                 <div class="absolute -right-10 -bottom-10 text-accent/5 pointer-events-none transform group-hover:scale-125 transition duration-700">
                     <i class="fa-solid fa-crown text-[12rem]"></i>
@@ -201,7 +201,7 @@
                 <div id="sponsored-banners-container" class="relative z-10 flex space-x-4 overflow-x-auto no-scrollbar scroll-smooth py-1"></div>
             </div>
 
-            <!-- Servidor del Día[cite: 1] -->
+            <!-- Servidor del Día[cite: 1, 2] -->
             <div class="lg:col-span-4 organic-card p-6 flex flex-col justify-between shadow-2xl border border-gold/30">
                 <div class="flex items-center justify-between mb-4">
                     <span class="text-xs bg-gold/15 text-gold font-bold px-3 py-1 rounded-full flex items-center space-x-2 border border-gold/30">
@@ -222,7 +222,7 @@
             </div>
         </div>
 
-        <!-- Podio Top 3 Semanal[cite: 1] -->
+        <!-- Podio Top 3 Semanal[cite: 1, 2] -->
         <section class="organic-card p-6 shadow-2xl">
             <h2 class="text-xs font-extrabold uppercase tracking-widest text-gray-400 mb-5 flex items-center space-x-2.5">
                 <div class="w-7 h-7 rounded-full bg-gold/20 text-gold flex items-center justify-center">
@@ -233,7 +233,7 @@
             <div id="podium-container" class="grid grid-cols-1 sm:grid-cols-3 gap-4"></div>
         </section>
 
-        <!-- Buscador, Filtros y Estadísticas[cite: 1] -->
+        <!-- Buscador, Filtros y Estadísticas[cite: 1, 2] -->
         <div class="organic-card p-4 sm:p-5 flex flex-col lg:flex-row gap-4 items-center justify-between shadow-xl">
             <div class="relative w-full lg:w-80 group">
                 <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400 group-focus-within:text-accent transition">
@@ -250,7 +250,7 @@
                 <button onclick="filterCategory('Anime')" class="cat-btn px-4 py-2.5 rounded-2xl text-xs font-bold bg-darkbg/90 text-gray-400 hover:bg-gray-800 hover:text-white transition-all whitespace-nowrap border border-gray-800">Anime</button>
             </div>
 
-            <!-- Estadísticas Minimalistas[cite: 1] -->
+            <!-- Estadísticas Minimalistas[cite: 1, 2] -->
             <div class="flex items-center space-x-3 bg-darkbg/90 px-4 py-2.5 rounded-2xl border border-gray-800 text-xs flex-shrink-0 shadow-inner">
                 <div class="flex items-center space-x-1.5" title="Total Servidores">
                     <i class="fa-solid fa-server text-accent"></i>
@@ -269,7 +269,7 @@
             </div>
         </div>
 
-        <!-- Grilla Bento de Servidores[cite: 1] -->
+        <!-- Grilla Bento de Servidores[cite: 1, 2] -->
         <section class="animate-fade-in space-y-4">
             <div class="flex items-center justify-between px-2">
                 <h2 class="text-base sm:text-lg font-extrabold text-white flex items-center space-x-2.5">
@@ -284,7 +284,7 @@
         </section>
     </main>
 
-    <!-- Footer[cite: 1] -->
+    <!-- Footer[cite: 1, 2] -->
     <footer class="border-t border-gray-800/60 py-8 mt-16 bg-darkbg relative z-10 text-center">
         <div class="max-w-7xl mx-auto px-4 text-xs text-gray-500 space-y-2">
             <p class="font-semibold text-gray-400">Tsuki Ads & More</p>
@@ -292,7 +292,7 @@
         </div>
     </footer>
 
-    <!-- MODAL DE CLAVE DE ACCESO ADMIN[cite: 1] -->
+    <!-- MODAL DE CLAVE DE ACCESO ADMIN[cite: 1, 2] -->
     <div id="admin-login-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-4 animate-fade-in">
         <div class="organic-card border border-gray-700 w-full max-w-sm p-6 space-y-5 shadow-2xl text-center relative">
             <div class="w-14 h-14 rounded-2xl bg-accent/20 border border-accent/30 text-accent mx-auto flex items-center justify-center text-xl shadow-lg">
@@ -310,7 +310,7 @@
         </div>
     </div>
 
-    <!-- MODAL GENERAL DE AVISOS[cite: 1] -->
+    <!-- MODAL GENERAL DE AVISOS[cite: 1, 2] -->
     <div id="custom-alert-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-4 animate-fade-in">
         <div class="organic-card border border-gray-700 w-full max-w-sm p-6 space-y-5 shadow-2xl text-center relative">
             <div id="alert-icon-container" class="w-14 h-14 rounded-2xl bg-accent/20 border border-accent/30 text-accent mx-auto flex items-center justify-center text-2xl shadow-lg">
@@ -324,7 +324,7 @@
         </div>
     </div>
 
-    <!-- Modal: Reglas de Publicación[cite: 1] -->
+    <!-- Modal: Reglas de Publicación[cite: 1, 2] -->
     <div id="rules-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-4 animate-fade-in">
         <div class="organic-card border border-gray-700 w-full max-w-lg p-6 space-y-5 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-gray-800 pb-4">
@@ -358,7 +358,7 @@
         </div>
     </div>
 
-    <!-- Modal: Publicar Servidor[cite: 1] -->
+    <!-- Modal: Publicar Servidor[cite: 1, 2] -->
     <div id="add-server-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-4 animate-fade-in">
         <div class="organic-card border border-gray-700 w-full max-w-md p-6 space-y-5 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-gray-800 pb-4">
@@ -401,7 +401,7 @@
         </div>
     </div>
 
-    <!-- Modal: Detalle / Reseñas de Servidor[cite: 1] -->
+    <!-- Modal: Detalle / Reseñas de Servidor[cite: 1, 2] -->
     <div id="server-detail-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-4 animate-fade-in">
         <div class="organic-card border border-gray-700 w-full max-w-2xl p-6 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-gray-800 pb-4">
@@ -421,7 +421,7 @@
                     <p id="detail-desc" class="text-xs sm:text-sm text-gray-300 leading-relaxed bg-darkbg/60 p-4 rounded-2xl border border-gray-800"></p>
                 </div>
 
-                <!-- Botón para Unirse a Discord[cite: 1] -->
+                <!-- Botón para Unirse a Discord[cite: 1, 2] -->
                 <div>
                     <a id="detail-invite-btn" href="#" target="_blank" class="w-full bg-gradient-to-r from-accent to-neonpurple text-white py-3 rounded-2xl font-bold text-xs transition flex items-center justify-center space-x-2 shadow-lg shadow-accent/20">
                         <i class="fa-brands fa-discord text-sm"></i>
@@ -429,7 +429,7 @@
                     </a>
                 </div>
 
-                <!-- Sección de Reseñas / Comentarios[cite: 1] -->
+                <!-- Sección de Reseñas / Comentarios[cite: 1, 2] -->
                 <div class="border-t border-gray-800 pt-4 space-y-4">
                     <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Reseñas de la Comunidad</h4>
                     <div id="detail-reviews-list" class="space-y-2.5 max-h-40 overflow-y-auto no-scrollbar"></div>
@@ -443,7 +443,7 @@
         </div>
     </div>
 
-    <!-- Modal: Panel de Administración Privado Avanzado[cite: 1] -->
+    <!-- Modal: Panel de Administración Privado Avanzado[cite: 1, 2] -->
     <div id="admin-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-4 animate-fade-in">
         <div class="organic-card border border-gray-700 w-full max-w-4xl p-6 space-y-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-gray-800 pb-4">
@@ -456,7 +456,7 @@
                 <button onclick="closeAdminModal()" class="w-8 h-8 rounded-full bg-darkbg text-gray-400 hover:text-white flex items-center justify-center border border-gray-700 transition"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
-            <!-- Estadísticas Globales Admin[cite: 1] -->
+            <!-- Estadísticas Globales Admin[cite: 1, 2] -->
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 <div class="bg-darkbg/80 p-4 rounded-2xl border border-gray-800 text-center shadow-inner">
                     <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider block mb-1">Servidores Totales</span>
@@ -476,7 +476,7 @@
                 </div>
             </div>
 
-            <!-- Gestión y Moderación de Servidores de Usuarios[cite: 1] -->
+            <!-- Gestión y Moderación de Servidores de Usuarios[cite: 1, 2] -->
             <div class="bg-darkbg/80 p-5 rounded-2xl border border-gray-800 space-y-4 shadow-inner">
                 <h4 class="font-bold text-sm text-white flex items-center space-x-2">
                     <i class="fa-solid fa-server text-accent"></i>
@@ -488,7 +488,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Gestión de VIPs[cite: 1] -->
+                <!-- Gestión de VIPs[cite: 1, 2] -->
                 <div class="bg-darkbg/80 p-5 rounded-2xl border border-gray-800 space-y-4 shadow-inner">
                     <h4 class="font-bold text-sm text-white flex items-center space-x-2">
                         <i class="fa-solid fa-star text-accent"></i>
@@ -511,7 +511,7 @@
                     </form>
                 </div>
 
-                <!-- Publicar Anuncio Global[cite: 1] -->
+                <!-- Publicar Anuncio Global[cite: 1, 2] -->
                 <div class="bg-darkbg/80 p-5 rounded-2xl border border-gray-800 space-y-4 shadow-inner">
                     <h4 class="font-bold text-sm text-white flex items-center space-x-2">
                         <i class="fa-solid fa-bullhorn text-accent"></i>
@@ -529,19 +529,52 @@
         </div>
     </div>
 
-    <!-- Script principal de Funcionalidad Local (localStorage)[cite: 1] -->
+    <!-- Script principal adaptado con Base de Datos Global (npoint.io)[cite: 1, 2] -->
     <script>
-        let servers = JSON.parse(localStorage.getItem('tsuki_servers')) || [];
-        let banners = JSON.parse(localStorage.getItem('tsuki_banners')) || [];
-        let globalAnnouncement = localStorage.getItem('tsuki_announcement') || '¡Bienvenido al directorio! Revisa las reglas de publicación antes de registrar tu comunidad.';
-        let adminPassword = localStorage.getItem('tsuki_admin_pass') || 'admin123';
+        // Enlace de tu API en npoint.io
+        const API_URL = 'https://api.npoint.io/5aa6a049e5bfb034e501';
+
+        let db = {
+            servers: [],
+            banners: [],
+            announcement: '¡Bienvenido al directorio! Revisa las reglas de publicación antes de registrar tu comunidad.',
+            adminPass: 'admin123'
+        };
+
+        let currentThemeKey = localStorage.getItem('tsuki_theme') || 'blue';
         let currentActiveServerId = null;
 
         let voteCooldowns = JSON.parse(localStorage.getItem('tsuki_vote_cooldowns')) || {};
         let bumpCooldowns = JSON.parse(localStorage.getItem('tsuki_bump_cooldowns')) || {};
         const COOLDOWN_TIME = 60 * 60 * 1000; 
 
-        document.getElementById('global-announcement-bar').innerText = globalAnnouncement;
+        // Cargar datos globales desde la nube
+        async function loadDatabase() {
+            try {
+                const response = await fetch(API_URL);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data) db = data;
+                }
+            } catch (error) {
+                console.error("Error al cargar la base de datos global:", error);
+            }
+            document.getElementById('global-announcement-bar').innerText = db.announcement || '';
+            renderAll();
+        }
+
+        // Guardar cambios globalmente en la nube
+        async function saveDatabase() {
+            try {
+                await fetch(API_URL, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(db)
+                });
+            } catch (error) {
+                console.error("Error al guardar en la base de datos global:", error);
+            }
+        }
 
         function setTheme(themeKey) {
             currentThemeKey = themeKey;
@@ -570,7 +603,7 @@
         function verifyAdminPassword(event) {
             event.preventDefault();
             const inputVal = document.getElementById('admin-password-input').value;
-            if (inputVal === adminPassword) {
+            if (inputVal === (db.adminPass || 'admin123')) {
                 closeAdminLoginModal();
                 renderAdminPanelData();
                 document.getElementById('admin-modal').classList.remove('hidden');
@@ -579,25 +612,11 @@
             }
         }
 
-        function closeAdminModal() {
-            document.getElementById('admin-modal').classList.add('hidden');
-        }
-
-        function openRulesModal() {
-            document.getElementById('rules-modal').classList.remove('hidden');
-        }
-
-        function closeRulesModal() {
-            document.getElementById('rules-modal').classList.add('hidden');
-        }
-
-        function openAddServerModal() {
-            document.getElementById('add-server-modal').classList.remove('hidden');
-        }
-
-        function closeAddServerModal() {
-            document.getElementById('add-server-modal').classList.add('hidden');
-        }
+        function closeAdminModal() { document.getElementById('admin-modal').classList.add('hidden'); }
+        function openRulesModal() { document.getElementById('rules-modal').classList.remove('hidden'); }
+        function closeRulesModal() { document.getElementById('rules-modal').classList.add('hidden'); }
+        function openAddServerModal() { document.getElementById('add-server-modal').classList.remove('hidden'); }
+        function closeAddServerModal() { document.getElementById('add-server-modal').classList.add('hidden'); }
 
         function showCustomAlert(title, message, iconClass = 'fa-bell') {
             document.getElementById('alert-title').innerText = title;
@@ -606,27 +625,25 @@
             document.getElementById('custom-alert-modal').classList.remove('hidden');
         }
 
-        function closeCustomAlert() {
-            document.getElementById('custom-alert-modal').classList.add('hidden');
-        }
+        function closeCustomAlert() { document.getElementById('custom-alert-modal').classList.add('hidden'); }
 
         function renderAdminPanelData() {
-            const totalVotes = servers.reduce((acc, s) => acc + (s.votes || 0), 0);
-            const totalBumps = servers.reduce((acc, s) => acc + (s.bumps || 0), 0);
-            document.getElementById('admin-stat-servers').innerText = servers.length;
+            const totalVotes = db.servers.reduce((acc, s) => acc + (s.votes || 0), 0);
+            const totalBumps = db.servers.reduce((acc, s) => acc + (s.bumps || 0), 0);
+            document.getElementById('admin-stat-servers').innerText = db.servers.length;
             document.getElementById('admin-stat-votes').innerText = totalVotes;
             document.getElementById('admin-stat-bumps').innerText = totalBumps;
-            document.getElementById('admin-stat-vips').innerText = banners.length;
+            document.getElementById('admin-stat-vips').innerText = db.banners.length;
 
             const listContainer = document.getElementById('admin-servers-list');
             listContainer.innerHTML = '';
 
-            if (servers.length === 0) {
-                listContainer.innerHTML = '<p class="text-xs text-gray-500 py-3 text-center">No hay servidores registrados por usuarios todavía.</p>';
+            if (db.servers.length === 0) {
+                listContainer.innerHTML = '<p class="text-xs text-gray-500 py-3 text-center">No hay servidores registrados.</p>';
                 return;
             }
 
-            servers.forEach(s => {
+            db.servers.forEach(s => {
                 listContainer.innerHTML += `
                     <div class="bg-cardbg p-3 rounded-xl border border-gray-800 flex items-center justify-between space-x-3">
                         <div class="flex items-center space-x-3 truncate">
@@ -637,35 +654,35 @@
                             </div>
                         </div>
                         <div class="flex items-center space-x-2 flex-shrink-0">
-                            <a href="${s.invite}" target="_blank" class="w-8 h-8 rounded-lg bg-darkbg text-gray-300 hover:text-white flex items-center justify-center border border-gray-700 text-xs transition" title="Visitar enlace"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                            <button onclick="deleteServerByAdmin(${s.id})" class="w-8 h-8 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30 flex items-center justify-center border border-red-500/30 text-xs transition" title="Eliminar servidor"><i class="fa-solid fa-trash"></i></button>
+                            <a href="${s.invite}" target="_blank" class="w-8 h-8 rounded-lg bg-darkbg text-gray-300 hover:text-white flex items-center justify-center border border-gray-700 text-xs transition"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                            <button onclick="deleteServerByAdmin(${s.id})" class="w-8 h-8 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30 flex items-center justify-center border border-red-500/30 text-xs transition"><i class="fa-solid fa-trash"></i></button>
                         </div>
                     </div>
                 `;
             });
         }
 
-        function deleteServerByAdmin(id) {
-            if (confirm('¿Estás seguro de eliminar este servidor del directorio?')) {
-                servers = servers.filter(item => item.id !== id);
-                localStorage.setItem('tsuki_servers', JSON.stringify(servers));
+        async function deleteServerByAdmin(id) {
+            if (confirm('¿Estás seguro de eliminar este servidor de forma global?')) {
+                db.servers = db.servers.filter(item => item.id !== id);
+                await saveDatabase();
                 renderAll();
                 renderAdminPanelData();
-                showCustomAlert('Servidor Eliminado', 'El servidor ha sido removido del directorio con éxito.', 'fa-trash-can');
+                showCustomAlert('Servidor Eliminado', 'El servidor ha sido removido globalmente.', 'fa-trash-can');
             }
         }
 
-        function handleAnnouncementSubmit(event) {
+        async function handleAnnouncementSubmit(event) {
             event.preventDefault();
             const text = document.getElementById('announcement-input').value;
-            globalAnnouncement = text;
-            localStorage.setItem('tsuki_announcement', text);
+            db.announcement = text;
+            await saveDatabase();
             document.getElementById('global-announcement-bar').innerText = text;
             closeAdminModal();
-            showCustomAlert('Anuncio Global', '¡El aviso global ha sido actualizado correctamente!');
+            showCustomAlert('Anuncio Global', '¡El aviso global ha sido actualizado para todos!');
         }
 
-        function handleBannerSubmit(event) {
+        async function handleBannerSubmit(event) {
             event.preventDefault();
             const title = document.getElementById('banner-title').value;
             const link = document.getElementById('banner-link').value;
@@ -673,18 +690,19 @@
             
             if (fileInput.files && fileInput.files[0]) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
-                    banners.push({ title, link, img: e.target.result });
-                    localStorage.setItem('tsuki_banners', JSON.stringify(banners));
+                reader.onload = async function(e) {
+                    if (!db.banners) db.banners = [];
+                    db.banners.push({ title, link, img: e.target.result });
+                    await saveDatabase();
                     closeAdminModal();
                     renderBanners();
-                    showCustomAlert('Espacio VIP', '¡Banner publicitario agregado con éxito!');
+                    showCustomAlert('Espacio VIP', '¡Banner publicitario agregado globalmente!');
                 }
                 reader.readAsDataURL(fileInput.files[0]);
             }
         }
 
-        function handleServerSubmit(event) {
+        async function handleServerSubmit(event) {
             event.preventDefault();
             const name = document.getElementById('srv-name').value;
             const invite = document.getElementById('srv-invite').value;
@@ -694,8 +712,9 @@
 
             if (fileInput.files && fileInput.files[0]) {
                 const reader = new FileReader();
-                reader.onload = function(e) {
-                    servers.push({
+                reader.onload = async function(e) {
+                    if (!db.servers) db.servers = [];
+                    db.servers.push({
                         id: Date.now(),
                         name,
                         invite,
@@ -707,11 +726,11 @@
                         createdAt: Date.now(),
                         reviews: []
                     });
-                    localStorage.setItem('tsuki_servers', JSON.stringify(servers));
+                    await saveDatabase();
                     closeAddServerModal();
                     document.getElementById('add-server-form').reset();
                     renderAll();
-                    showCustomAlert('¡Servidor Publicado!', 'Tu comunidad ya está disponible en el directorio principal.');
+                    showCustomAlert('¡Servidor Publicado!', 'Tu comunidad ya está disponible de forma global en el directorio.');
                 }
                 reader.readAsDataURL(fileInput.files[0]);
             }
@@ -719,7 +738,7 @@
 
         function openServerDetail(id) {
             currentActiveServerId = id;
-            const s = servers.find(item => item.id === id);
+            const s = db.servers.find(item => item.id === id);
             if (!s) return;
 
             document.getElementById('detail-img').src = s.img;
@@ -737,60 +756,60 @@
             currentActiveServerId = null;
         }
 
-        function voteServer(id, event) {
+        async function voteServer(id, event) {
             event.stopPropagation();
             const now = Date.now();
             const lastVote = voteCooldowns[id] || 0;
 
             if (now - lastVote < COOLDOWN_TIME) {
                 const minutesLeft = Math.ceil((COOLDOWN_TIME - (now - lastVote)) / (1000 * 60));
-                showCustomAlert('Cooldown activo', `Debes esperar ${minutesLeft} minuto(s) más para volver a votar por este servidor.`, 'fa-clock');
+                showCustomAlert('Cooldown activo', `Debes esperar ${minutesLeft} minuto(s) más para volver a votar.`, 'fa-clock');
                 return;
             }
 
-            const s = servers.find(item => item.id === id);
+            const s = db.servers.find(item => item.id === id);
             if (s) {
                 s.votes = (s.votes || 0) + 1;
                 voteCooldowns[id] = now;
-                localStorage.setItem('tsuki_servers', JSON.stringify(servers));
                 localStorage.setItem('tsuki_vote_cooldowns', JSON.stringify(voteCooldowns));
+                await saveDatabase();
                 renderAll();
-                showCustomAlert('¡Voto registrado!', 'Has votado con éxito por este servidor. ¡Gracias!', 'fa-heart');
+                showCustomAlert('¡Voto registrado!', 'Has votado con éxito de forma global.', 'fa-heart');
             }
         }
 
-        function bumpServer(id, event) {
+        async function bumpServer(id, event) {
             event.stopPropagation();
             const now = Date.now();
             const lastBump = bumpCooldowns[id] || 0;
 
             if (now - lastBump < COOLDOWN_TIME) {
                 const minutesLeft = Math.ceil((COOLDOWN_TIME - (now - lastBump)) / (1000 * 60));
-                showCustomAlert('Cooldown activo', `Debes esperar ${minutesLeft} minuto(s) más para hacer otro Bump a este servidor.`, 'fa-clock');
+                showCustomAlert('Cooldown activo', `Debes esperar ${minutesLeft} minuto(s) más para hacer Bump.`, 'fa-clock');
                 return;
             }
 
-            const s = servers.find(item => item.id === id);
+            const s = db.servers.find(item => item.id === id);
             if (s) {
                 s.bumps = (s.bumps || 0) + 1;
                 s.lastBumpTime = now;
                 bumpCooldowns[id] = now;
-                localStorage.setItem('tsuki_servers', JSON.stringify(servers));
                 localStorage.setItem('tsuki_bump_cooldowns', JSON.stringify(bumpCooldowns));
+                await saveDatabase();
                 renderAll();
-                showCustomAlert('¡Bump exitoso!', 'Has bumpeado este servidor correctamente.', 'fa-rotate');
+                showCustomAlert('¡Bump exitoso!', 'Servidor bumpeado globalmente.', 'fa-rotate');
             }
         }
 
-        function handleReviewSubmit(event) {
+        async function handleReviewSubmit(event) {
             event.preventDefault();
             if (!currentActiveServerId) return;
             const textInput = document.getElementById('review-input');
-            const s = servers.find(item => item.id === currentActiveServerId);
+            const s = db.servers.find(item => item.id === currentActiveServerId);
             if (s && textInput.value.trim()) {
                 if (!s.reviews) s.reviews = [];
                 s.reviews.push({ text: textInput.value.trim(), date: new Date().toLocaleDateString() });
-                localStorage.setItem('tsuki_servers', JSON.stringify(servers));
+                await saveDatabase();
                 textInput.value = '';
                 renderReviews(s);
             }
@@ -800,7 +819,7 @@
             const container = document.getElementById('detail-reviews-list');
             container.innerHTML = '';
             if (!s.reviews || s.reviews.length === 0) {
-                container.innerHTML = '<p class="text-[11px] text-gray-500 italic">No hay reseñas todavía. ¡Sé el primero en dejar una!</p>';
+                container.innerHTML = '<p class="text-[11px] text-gray-500 italic">No hay reseñas todavía.</p>';
                 return;
             }
             s.reviews.forEach(r => {
@@ -816,11 +835,11 @@
         function renderBanners() {
             const container = document.getElementById('sponsored-banners-container');
             container.innerHTML = '';
-            if (banners.length === 0) {
-                container.innerHTML = '<p class="text-xs text-gray-500 py-4 px-2">No hay servidores VIP patrocinados activos actualmente.</p>';
+            if (!db.banners || db.banners.length === 0) {
+                container.innerHTML = '<p class="text-xs text-gray-500 py-4 px-2">No hay servidores VIP patrocinados activos.</p>';
                 return;
             }
-            banners.forEach(b => {
+            db.banners.forEach(b => {
                 container.innerHTML += `
                     <div class="min-w-[260px] sm:min-w-[300px] bg-darkbg rounded-2xl p-3.5 border border-gray-700 flex items-center justify-between space-x-3 shadow-lg">
                         <div class="flex items-center space-x-3 truncate">
@@ -845,9 +864,9 @@
         }
 
         function updateGlobalStats() {
-            let totalVotes = servers.reduce((acc, s) => acc + (s.votes || 0), 0);
-            let totalBumps = servers.reduce((acc, s) => acc + (s.bumps || 0), 0);
-            document.getElementById('stat-servers').innerText = servers.length;
+            let totalVotes = db.servers.reduce((acc, s) => acc + (s.votes || 0), 0);
+            let totalBumps = db.servers.reduce((acc, s) => acc + (s.bumps || 0), 0);
+            document.getElementById('stat-servers').innerText = db.servers.length;
             document.getElementById('stat-votes').innerText = totalVotes;
             document.getElementById('stat-bumps').innerText = totalBumps;
         }
@@ -856,7 +875,7 @@
             const podiumContainer = document.getElementById('podium-container');
             podiumContainer.innerHTML = '';
 
-            let sortedByVotes = [...servers].sort((a, b) => (b.votes || 0) - (a.votes || 0));
+            let sortedByVotes = [...db.servers].sort((a, b) => (b.votes || 0) - (a.votes || 0));
             
             const sodContent = document.getElementById('server-of-the-day-content');
             const sodVotes = document.getElementById('sod-votes');
@@ -884,7 +903,7 @@
             }
 
             if (sortedByVotes.length === 0) {
-                podiumContainer.innerHTML = '<p class="text-xs text-gray-500 col-span-full py-4 text-center">Aún no hay servidores suficientes para el podio.</p>';
+                podiumContainer.innerHTML = '<p class="text-xs text-gray-500 col-span-full py-4 text-center">Aún no hay servidores suficientes.</p>';
                 return;
             }
 
@@ -928,14 +947,14 @@
             const search = document.getElementById('search-input').value.toLowerCase();
             grid.innerHTML = '';
             
-            const filtered = servers.filter(s => {
+            const filtered = db.servers.filter(s => {
                 const matchesSearch = s.name.toLowerCase().includes(search) || s.desc.toLowerCase().includes(search);
                 const matchesCat = activeCategoryFilter === 'todos' || s.category === activeCategoryFilter;
                 return matchesSearch && matchesCat;
             });
             
             if (filtered.length === 0) {
-                grid.innerHTML = '<p class="text-xs text-gray-500 col-span-full py-8 text-center">No se encontraron servidores con estos criterios.</p>';
+                grid.innerHTML = '<p class="text-xs text-gray-500 col-span-full py-8 text-center">No se encontraron servidores.</p>';
                 return;
             }
 
@@ -945,13 +964,7 @@
                 let badgesHTML = `<span class="text-[10px] bg-accent/20 text-accent px-2.5 py-0.5 rounded-full font-bold border border-accent/30">${s.category}</span>`;
                 
                 if ((s.votes || 0) >= 10) {
-                    badgesHTML += `<span class="text-[10px] bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full font-bold border border-blue-500/30 flex items-center space-x-1" title="Servidor Verificado"><i class="fa-solid fa-circle-check"></i><span>Verificado</span></span>`;
-                }
-                if (s.lastBumpTime && (now - s.lastBumpTime < 24 * 60 * 60 * 1000)) {
-                    badgesHTML += `<span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full font-bold border border-emerald-500/30 flex items-center space-x-1" title="Activo recientemente"><i class="fa-solid fa-bolt"></i><span>Activo</span></span>`;
-                }
-                if (s.createdAt && (now - s.createdAt < 3 * 24 * 60 * 60 * 1000)) {
-                    badgesHTML += `<span class="text-[10px] bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded-full font-bold border border-purple-500/30 flex items-center space-x-1" title="Servidor Nuevo"><i class="fa-solid fa-seedling"></i><span>Nuevo</span></span>`;
+                    badgesHTML += `<span class="text-[10px] bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full font-bold border border-blue-500/30 flex items-center space-x-1"><i class="fa-solid fa-circle-check"></i><span>Verificado</span></span>`;
                 }
 
                 grid.innerHTML += `
@@ -975,11 +988,11 @@
                             
                             <div class="flex items-center justify-between text-xs gap-2 pt-1">
                                 <div class="flex items-center space-x-2">
-                                    <button onclick="voteServer(${s.id}, event)" class="bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 px-3 py-1.5 rounded-xl font-bold transition flex items-center space-x-1" title="Dar Voto">
+                                    <button onclick="voteServer(${s.id}, event)" class="bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 px-3 py-1.5 rounded-xl font-bold transition flex items-center space-x-1">
                                         <i class="fa-solid fa-heart"></i>
                                         <span>${s.votes || 0}</span>
                                     </button>
-                                    <button onclick="bumpServer(${s.id}, event)" class="bg-gold/10 hover:bg-gold/20 text-gold border border-gold/30 px-3 py-1.5 rounded-xl font-bold transition flex items-center space-x-1" title="Dar Bump">
+                                    <button onclick="bumpServer(${s.id}, event)" class="bg-gold/10 hover:bg-gold/20 text-gold border border-gold/30 px-3 py-1.5 rounded-xl font-bold transition flex items-center space-x-1">
                                         <i class="fa-solid fa-rotate text-[10px]"></i>
                                         <span>${s.bumps || 0}</span>
                                     </button>
@@ -999,7 +1012,8 @@
             updateGlobalStats();
         }
 
-        renderAll();
+        // Cargar datos globales automáticamente al iniciar
+        loadDatabase();
     </script>
 </body>
 </html>
