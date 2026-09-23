@@ -1084,5 +1084,33 @@
     window.loadServersFromFirebase();
   });
 </script>
+
+<!-- 1. Carga la librería oficial de Supabase en tu HTML -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+  // 2. Inicializa Supabase con la URL de tu proyecto y tu Publishable Key
+  const SUPABASE_URL = 'https://loiaaeutibiqqzowsjfv.supabase.co';
+  const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_rVch4d37kFkMLDeNfe-tA_dk2jq-...'; // (Aquí va tu llave completa que vi en la captura)
+
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+  // 3. Ejemplo para leer/consultar los datos de tu tabla 'servers'
+  async function cargarServidores() {
+    const { data, error } = await supabase
+      .from('servers')
+      .select('*');
+
+    if (error) {
+      console.error('Error al cargar los servidores:', error);
+    } else {
+      console.log('Servidores obtenidos de Supabase:', data);
+      // Aquí puedes programar para que se muestren en tu diseño web de Tsuki Ads
+    }
+  }
+
+  // Ejecutar la función de prueba
+  cargarServidores();
+</script>
 </body>
 </html>
