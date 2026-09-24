@@ -1,1 +1,95 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tsuki Ads & More | En Mantenimiento</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#070A10',
+                        cardbg: '#0F1626',
+                        accent: '#3B82F6',
+                        neonpurple: '#8B5CF6'
+                    },
+                    animation: {
+                        'float': 'float 5s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-8px) rotate(0.5deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .organic-card {
+            background: linear-gradient(145deg, #0F1626, rgba(7, 10, 16, 0.95));
+            backdrop-filter: blur(16px);
+            border-radius: 2rem;
+            border: 1px solid rgba(59, 130, 246, 0.12);
+            box-shadow: 0 20px 40px -15px rgba(59, 130, 246, 0.25);
+        }
+    </style>
+</head>
+<body class="bg-darkbg text-gray-100 min-h-screen flex flex-col items-center justify-center font-sans selection:bg-accent selection:text-white p-4 relative overflow-hidden">
+
+    <!-- Elementos decorativos de fondo -->
+    <div class="absolute -top-32 -left-32 w-96 h-96 bg-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-neonpurple/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <!-- Contenedor Principal de Mantenimiento -->
+    <div class="organic-card p-8 sm:p-12 max-w-lg w-full text-center space-y-6 relative z-10 shadow-2xl border-2 border-accent/30 animate-fade-in">
+        
+        <!-- Icono Animado -->
+        <div class="w-20 h-20 rounded-3xl bg-gradient-to-br from-accent to-neonpurple flex items-center justify-center text-white mx-auto shadow-lg shadow-accent/40 animate-float">
+            <i class="fa-solid fa-screwdriver-wrench text-3xl"></i>
+        </div>
+
+        <!-- Títulos -->
+        <div class="space-y-2">
+            <span class="text-xs bg-accent/20 text-accent font-extrabold px-3.5 py-1.5 rounded-full border border-accent/30 uppercase tracking-widest inline-block">
+                <i class="fa-solid fa-triangle-exclamation mr-1"></i> Sitio en Mantenimiento
+            </span>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-wide">Volveremos Muy Pronto</h1>
+            <p class="text-xs sm:text-sm text-gray-400 leading-relaxed pt-2">
+                Estamos realizando mejoras y optimizaciones en la plataforma de <strong class="text-accent">Tsuki Ads & More</strong> para ofrecerte una mejor experiencia. Disculpa las molestias.
+            </p>
+        </div>
+
+        <!-- Barra de Estado / Progreso simulado -->
+        <div class="bg-darkbg p-4 rounded-2xl border border-gray-800 space-y-2 text-left">
+            <div class="flex justify-between text-xs text-gray-400 font-semibold">
+                <span>Estado de actualización</span>
+                <span class="text-accent animate-pulse">En proceso...</span>
+            </div>
+            <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                <div class="bg-gradient-to-r from-accent to-neonpurple h-full w-3/4 rounded-full"></div>
+            </div>
+        </div>
+
+        <!-- Botón de recarga o contacto -->
+        <div class="pt-2">
+            <button onclick="window.location.reload();" class="w-full bg-gradient-to-r from-accent via-blue-600 to-neonpurple hover:opacity-95 text-white py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all transform hover:scale-[1.02] shadow-xl shadow-accent/30 flex items-center justify-center space-x-2">
+                <i class="fa-solid fa-rotate-right"></i>
+                <span>Comprobar Estado</span>
+            </button>
+        </div>
+
+        <!-- Footer discreto -->
+        <div class="text-[10px] text-gray-500 pt-2 border-t border-gray-800/80">
+            &copy; 2026 Tsuki Ads & More. Todos los derechos reservados.
+        </div>
+    </div>
+
+</body>
+</html>
