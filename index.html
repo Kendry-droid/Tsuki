@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tsuki - Bot de Discord</title>
+    <title>Tsuki En Mantenimiento</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
@@ -15,6 +15,16 @@
                         cardbg: '#0F1626',
                         accent: '#3B82F6',
                         neonpurple: '#8B5CF6'
+                    },
+                    animation: {
+                        'float': 'float 5s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-8px) rotate(0.5deg)' },
+                        }
                     }
                 }
             }
@@ -23,107 +33,63 @@
     <style>
         body {
             background-color: #070A10;
-            background-image: radial-gradient(rgba(59, 130, 246, 0.12) 1px, transparent 1px);
-            background-size: 32px 32px;
+            background-image: radial-gradient(rgba(59, 130, 246, 0.15) 1px, transparent 1px);
+            background-size: 28px 28px;
         }
-        .glass-card {
-            background: linear-gradient(145deg, #0F1626, rgba(7, 10, 16, 0.9));
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(59, 130, 246, 0.15);
+        .organic-card {
+            background: linear-gradient(145deg, #0F1626, rgba(7, 10, 16, 0.95));
+            backdrop-filter: blur(16px);
+            border-radius: 2rem;
+            border: 1px solid rgba(59, 130, 246, 0.12);
+            box-shadow: 0 20px 40px -15px rgba(59, 130, 246, 0.25);
         }
     </style>
 </head>
-<body class="text-gray-100 font-sans selection:bg-accent selection:text-white min-h-screen flex flex-col justify-between">
+<body class="text-gray-100 min-h-screen flex flex-col items-center justify-center font-sans selection:bg-accent selection:text-white p-4 relative overflow-hidden">
 
-    <!-- Navbar -->
-    <header class="w-full border-b border-gray-800/60 bg-darkbg/80 backdrop-blur-md sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-neonpurple flex items-center justify-center text-white shadow-lg shadow-accent/30 font-bold text-lg">
-                    T
-                </div>
-                <span class="text-lg font-extrabold tracking-wider text-white">Tsuki</span>
+    <div class="absolute -top-32 -left-32 w-96 h-96 bg-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-neonpurple/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="organic-card p-8 sm:p-12 max-w-lg w-full text-center space-y-6 relative z-10 shadow-2xl border-2 border-accent/30 animate-fade-in">
+        
+        <div class="w-20 h-20 rounded-3xl bg-gradient-to-br from-accent to-neonpurple flex items-center justify-center text-white mx-auto shadow-lg shadow-accent/40 animate-float">
+            <i class="fa-solid fa-screwdriver-wrench text-3xl"></i>
+        </div>
+
+        <div class="space-y-2">
+            <span class="text-xs bg-accent/20 text-accent font-extrabold px-3.5 py-1.5 rounded-full border border-accent/30 uppercase tracking-widest inline-block">
+                <i class="fa-solid fa-triangle-exclamation mr-1"></i> Sitio en Mantenimiento
+            </span>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-wide">Volveremos Muy Pronto</h1>
+            <p class="text-xs sm:text-sm text-gray-400 leading-relaxed pt-2">
+                Estamos realizando mejoras y optimizaciones en la plataforma de <strong class="text-accent">Tsuki</strong> para ofrecerte una mejor experiencia. Disculpa las molestias.
+            </p>
+        </div>
+
+        <div class="bg-darkbg p-4 rounded-2xl border border-gray-800 space-y-2 text-left">
+            <div class="flex justify-between text-xs text-gray-400 font-semibold">
+                <span>Estado de actualización</span>
+                <span class="text-accent animate-pulse">En proceso...</span>
             </div>
-            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
-                <a href="#features" class="hover:text-accent transition-colors">Características</a>
-                <a href="#commands" class="hover:text-accent transition-colors">Comandos</a>
-                <a href="https://discord.gg/NTzxDX7dFB" target="_blank" class="hover:text-accent transition-colors">Soporte</a>
-            </nav>
-            <div>
-                <a href="https://discord.com/oauth2/authorize?client_id=TU_CLIENT_ID&scope=bot&permissions=8" target="_blank" class="bg-accent hover:bg-blue-600 text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-lg shadow-accent/20 flex items-center space-x-2">
-                    <i class="fa-solid fa-plus"></i>
-                    <span>Invitar Bot</span>
-                </a>
+            <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                <div class="bg-gradient-to-r from-accent to-neonpurple h-full w-3/4 rounded-full"></div>
             </div>
         </div>
-    </header>
 
-    <!-- Hero Section -->
-    <main class="max-w-6xl mx-auto px-4 py-16 sm:py-24 text-center space-y-8 flex-grow">
-        <div class="inline-flex items-center space-x-2 bg-accent/10 border border-accent/30 px-4 py-1.5 rounded-full text-accent text-xs font-bold uppercase tracking-widest">
-            <i class="fa-solid fa-sparkles"></i>
-            <span>100% Gratuito y Libre de Anuncios</span>
-        </div>
-        
-        <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white max-w-3xl mx-auto leading-tight">
-            Potencia tu servidor de Discord con <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-neonpurple">Tsuki</span>
-        </h1>
-        
-        <p class="text-gray-400 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-            Un bot rápido, versátil y diseñado para optimizar tu comunidad. Moderación avanzada, herramientas de interacción y gestión de registros sin complicaciones.
-        </p>
+        <div class="pt-2 space-y-3">
+            <button onclick="window.location.reload();" class="w-full bg-gradient-to-r from-accent via-blue-600 to-neonpurple hover:opacity-95 text-white py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all transform hover:scale-[1.02] shadow-xl shadow-accent/30 flex items-center justify-center space-x-2">
+                <i class="fa-solid fa-rotate-right"></i>
+                <span>Comprobar Estado</span>
+            </button>
 
-        <!-- Botones de Acción Principal -->
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <a href="https://discord.com/oauth2/authorize?client_id=TU_CLIENT_ID&scope=bot&permissions=8" target="_blank" class="w-full sm:w-auto bg-gradient-to-r from-accent to-neonpurple hover:opacity-95 text-white px-8 py-3.5 rounded-2xl font-bold text-sm transition-all transform hover:scale-105 shadow-xl shadow-accent/30 flex items-center justify-center space-x-2">
-                <i class="fa-brands fa-discord text-lg"></i>
-                <span>Añadir a Discord</span>
-            </a>
-            <a href="https://discord.gg/NTzxDX7dFB" target="_blank" class="w-full sm:w-auto bg-cardbg hover:bg-gray-800 text-gray-200 border border-gray-700 px-8 py-3.5 rounded-2xl font-bold text-sm transition-all flex items-center justify-center space-x-2">
-                <i class="fa-solid fa-headset"></i>
-                <span>Servidor de Soporte</span>
+            <a href="https://discord.gg/NTzxDX7dFB" target="_blank" class="w-full bg-[#5865F2] hover:bg-[#4752C4] text-white py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all transform hover:scale-[1.02] shadow-xl shadow-[#5865F2]/30 flex items-center justify-center space-x-2">
+                <i class="fa-brands fa-discord text-base"></i>
+                <span>Únete a nuestro Discord</span>
             </a>
         </div>
 
-        <!-- Grid de Características -->
-        <div id="features" class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-20 text-left">
-            <div class="glass-card p-6 rounded-3xl space-y-3">
-                <div class="w-12 h-12 rounded-2xl bg-accent/20 text-accent flex items-center justify-center text-xl">
-                    <i class="fa-solid fa-shield-halved"></i>
-                </div>
-                <h3 class="text-lg font-bold text-white">Moderación Eficaz</h3>
-                <p class="text-xs text-gray-400 leading-relaxed">Controla el spam, filtra enlaces maliciosos y mantén la seguridad de tu comunidad de forma automatizada las 24 horas.</p>
-            </div>
-
-            <div class="glass-card p-6 rounded-3xl space-y-3">
-                <div class="w-12 h-12 rounded-2xl bg-neonpurple/20 text-neonpurple flex items-center justify-center text-xl">
-                    <i class="fa-solid fa-code"></i>
-                </div>
-                <h3 class="text-lg font-bold text-white">Comandos y Tags</h3>
-                <p class="text-xs text-gray-400 leading-relaxed">Crea comandos personalizados adaptados a las necesidades específicas de tu servidor con total flexibilidad.</p>
-            </div>
-
-            <div class="glass-card p-6 rounded-3xl space-y-3">
-                <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl">
-                    <i class="fa-solid fa-bolt"></i>
-                </div>
-                <h3 class="text-lg font-bold text-white">Alta Velocidad</h3>
-                <p class="text-xs text-gray-400 leading-relaxed">Construido con tecnología moderna en Node.js para garantizar respuestas instantáneas y una estabilidad continua.</p>
-            </div>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="border-t border-gray-800/60 bg-darkbg/90 mt-20 py-8">
-        <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 space-y-4 sm:space-y-0">
-            <p>&copy; 2026 Tsuki Bot. Todos los derechos reservados.</p>
-            <div class="flex space-x-6">
-                <a href="#" class="hover:text-gray-300 transition-colors">Términos</a>
-                <a href="#" class="hover:text-gray-300 transition-colors">Privacidad</a>
-                <a href="https://discord.gg/NTzxDX7dFB" target="_blank" class="hover:text-gray-300 transition-colors">Soporte</a>
-            </div>
-        </div>
-    </footer>
+        <div class="text-[10px] text-gray-500 pt-2 border-t border-gray-800/80"></div>
+    </div>
 
 </body>
 </html>
