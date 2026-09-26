@@ -30,6 +30,7 @@
                         'float-slow': 'floatSlow 7s ease-in-out infinite',
                         'float-fast': 'floatFast 4s ease-in-out infinite',
                         'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+                        'ticker': 'ticker 22s linear infinite',
                     },
                     keyframes: {
                         floatSlow: {
@@ -43,6 +44,10 @@
                         pulseGlow: {
                             '0%, 100%': { opacity: '0.4' },
                             '50%': { opacity: '0.8' },
+                        },
+                        ticker: {
+                            '0%': { transform: 'translateY(0%)' },
+                            '100%': { transform: 'translateY(-50%)' },
                         }
                     }
                 }
@@ -55,6 +60,11 @@
         }
         .organic-blob-2 {
             border-radius: 65% 35% 55% 45% / 30% 60% 40% 70%;
+        }
+        /* Mask for ticker container effect */
+        .ticker-mask {
+            mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
         }
     </style>
 </head>
@@ -106,49 +116,123 @@
                 </div>
             </div>
 
-            <!-- Action Buttons -->
-            <div class="flex flex-col sm:flex-row gap-3">
-                <button onclick="window.location.reload();" class="flex-1 bg-gradient-to-r from-accent to-accenthover text-white font-bold py-3.5 px-6 rounded-2xl text-sm transition-all transform hover:scale-[1.02] shadow-lg shadow-accent/25 flex items-center justify-center space-x-2">
-                    <i class="fa-solid fa-rotate-right"></i>
+            <!-- Compact Action Buttons -->
+            <div class="flex flex-row gap-3">
+                <button onclick="window.location.reload();" class="flex-1 bg-gradient-to-r from-accent to-accenthover text-white font-bold py-2.5 px-4 rounded-xl text-xs transition-all transform hover:scale-[1.02] shadow-md shadow-accent/25 flex items-center justify-center space-x-1.5">
+                    <i class="fa-solid fa-rotate-right text-[11px]"></i>
                     <span>Verificar Estado</span>
                 </button>
-                <a href="https://discord.gg/NTzxDX7dFB" target="_blank" class="flex-1 bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold py-3.5 px-6 rounded-2xl text-sm transition-all transform hover:scale-[1.02] shadow-lg shadow-[#5865F2]/25 flex items-center justify-center space-x-2">
-                    <i class="fa-brands fa-discord text-base"></i>
+                <a href="https://discord.gg/NTzxDX7dFB" target="_blank" class="flex-1 bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold py-2.5 px-4 rounded-xl text-xs transition-all transform hover:scale-[1.02] shadow-md shadow-[#5865F2]/25 flex items-center justify-center space-x-1.5">
+                    <i class="fa-brands fa-discord text-sm"></i>
                     <span>Comunidad Discord</span>
                 </a>
             </div>
 
         </div>
 
-        <!-- Right Asymmetric Card: Details & Commands List -->
+        <!-- Right Asymmetric Card: Details & Scrolling Commands List -->
         <div class="lg:col-span-5 flex flex-col gap-6">
             
-            <!-- Secondary Organic Card with Commands List -->
-            <div class="bg-white dark:bg-darkcard border border-gray-200/80 dark:border-gray-800/80 shadow-xl p-6 sm:p-8 organic-blob-2 animate-float-fast transition-all duration-500 relative">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-neonpink to-accent flex items-center justify-center text-white text-xl shadow-lg shadow-neonpink/30 mb-4">
-                    <i class="fa-solid fa-terminal"></i>
+            <!-- Secondary Organic Card with Vertical Scrolling Ticker -->
+            <div class="bg-white dark:bg-darkcard border border-gray-200/80 dark:border-gray-800/80 shadow-xl p-6 sm:p-7 organic-blob-2 animate-float-fast transition-all duration-500 relative">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-neonpink to-accent flex items-center justify-center text-white text-base shadow-lg shadow-neonpink/30">
+                        <i class="fa-solid fa-terminal"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-display font-bold text-base text-gray-900 dark:text-white">¿Qué hay de nuevo?</h3>
+                        <p class="text-[10px] text-gray-400 font-medium">Nuevos comandos y optimizaciones</p>
+                    </div>
                 </div>
-                <h3 class="font-display font-bold text-lg mb-4 text-gray-900 dark:text-white">¿Qué hay de nuevo?</h3>
                 
-                <!-- Command List -->
-                <ul class="space-y-2.5 text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-mono">
-                    <li class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
-                        <span class="text-accent font-bold">/help</span>
-                        <span class="text-[11px] text-gray-400 dark:text-gray-500">- Guía interactiva</span>
-                    </li>
-                    <li class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
-                        <span class="text-neonpink font-bold">/play</span>
-                        <span class="text-[11px] text-gray-400 dark:text-gray-500">- Audio de alta calidad</span>
-                    </li>
-                    <li class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
-                        <span class="text-neonteal font-bold">/stats</span>
-                        <span class="text-[11px] text-gray-400 dark:text-gray-500">- Métricas del bot</span>
-                    </li>
-                    <li class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
-                        <span class="text-accent font-bold">/ban</span>
-                        <span class="text-[11px] text-gray-400 dark:text-gray-500">- Moderación avanzada</span>
-                    </li>
-                </ul>
+                <!-- Vertical Scrolling Ticker Container -->
+                <div class="h-44 overflow-hidden relative ticker-mask">
+                    <div class="flex flex-col space-y-2.5 animate-ticker">
+                        <!-- Set 1 (10 items) -->
+                        <div class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
+                            <span class="text-accent font-bold text-xs font-mono">/help</span>
+                            <span class="text-[11px] text-gray-400 dark:text-gray-500">- Guía interactiva</span>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
+                            <span class="text-neonpink font-bold text-xs font-mono">/play</span>
+                            <span class="text-[11px] text-gray-400 dark:text-gray-500">- Audio de alta calidad</span>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
+                            <span class="text-neonteal font-bold text-xs font-mono">/stats</span>
+                            <span class="text-[11px] text-gray-400 dark:text-gray-500">- Métricas del bot</span>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
+                            <span class="text-accent font-bold text-xs font-mono">/ban</span>
+                            <span class="text-[11px] text-gray-400 dark:text-gray-500">- Moderación avanzada</span>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
+                            <span class="text-neonpink font-bold text-xs font-mono">/queue</span>
+                            <span class="text-[11px] text-gray-400 dark:text-gray-500">- Lista de reproducción</span>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
+                            <span class="text-neonteal font-bold text-xs font-mono">/ping</span>
+                            <span class="text-[11px] text-gray-400 dark:text-gray-500">- Latencia en tiempo real</span>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
+                            <span class="text-accent font-bold text-xs font-mono">/purge</span>
+                            <span class="text-[11px] text-gray-400 dark:text-gray-500">- Limpieza de mensajes</span>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
+                            <span class="text-neonpink font-bold text-xs font-mono">/avatar</span>
+                            <span class="text-[11px] text-gray-400 dark:text-gray-500">- Ver foto de perfil</span>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
+                            <span class="text-neonteal font-bold text-xs font-mono">/serverinfo</span>
+                            <span class="text-[11px] text-gray-400 dark:text-gray-500">- Datos del servidor</span>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
+                            <span class="text-accent font-bold text-xs font-mono">/lyrics</span>
+                            <span class="text-[11px] text-gray-400 dark:text-gray-500">- Letras de canciones</span>
+                        </div>
+
+                        <!-- Duplicate Set for Infinite Seamless Loop -->
+                        <div class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
+                            <span class="text-accent font-bold text-xs font-mono">/help</span>
+                            <span class="text-[11px] text-gray-400 dark:text-gray-500">- Guía interactiva</span>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
+                            <span class="text-neonpink font-bold text-xs font-mono">/play</span>
+                            <span class="text-[11px] text-gray-400 dark:text-gray-500">- Audio de alta calidad</span>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
+                            <span class="text-neonteal font-bold text-xs font-mono">/stats</span>
+                            <span class="text-[11px] text-gray-400 dark:text-gray-500">- Métricas del bot</span>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
+                            <span class="text-accent font-bold text-xs font-mono">/ban</span>
+                            <span class="text-[11px] text-gray-400 dark:text-gray-500">- Moderación avanzada</span>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
+                            <span class="text-neonpink font-bold text-xs font-mono">/queue</span>
+                            <span class="text-[11px] text-gray-400 dark:text-gray-500">- Lista de reproducción</span>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
+                            <span class="text-neonteal font-bold text-xs font-mono">/ping</span>
+                            <span class="text-[11px] text-gray-400 dark:text-gray-500">- Latencia en tiempo real</span>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
+                            <span class="text-accent font-bold text-xs font-mono">/purge</span>
+                            <span class="text-[11px] text-gray-400 dark:text-gray-500">- Limpieza de mensajes</span>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
+                            <span class="text-neonpink font-bold text-xs font-mono">/avatar</span>
+                            <span class="text-[11px] text-gray-400 dark:text-gray-500">- Ver foto de perfil</span>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
+                            <span class="text-neonteal font-bold text-xs font-mono">/serverinfo</span>
+                            <span class="text-[11px] text-gray-400 dark:text-gray-500">- Datos del servidor</span>
+                        </div>
+                        <div class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
+                            <span class="text-accent font-bold text-xs font-mono">/lyrics</span>
+                            <span class="text-[11px] text-gray-400 dark:text-gray-500">- Letras de canciones</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -189,4 +273,3 @@
     </script>
 </body>
 </html>
-
