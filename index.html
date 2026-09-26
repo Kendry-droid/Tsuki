@@ -31,8 +31,6 @@
                         'float-fast': 'floatFast 4s ease-in-out infinite',
                         'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
                         'ticker': 'ticker 22s linear infinite',
-                        'spin-slow': 'spin 8s linear infinite',
-                        'pulse-ring': 'pulseRing 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                     keyframes: {
                         floatSlow: {
@@ -50,11 +48,6 @@
                         ticker: {
                             '0%': { transform: 'translateY(0%)' },
                             '100%': { transform: 'translateY(-50%)' },
-                        },
-                        pulseRing: {
-                            '0%': { transform: 'scale(0.95)', opacity: '1' },
-                            '50%': { transform: 'scale(1.15)', opacity: '0.4' },
-                            '100%': { transform: 'scale(0.95)', opacity: '1' },
                         }
                     }
                 }
@@ -76,6 +69,7 @@
 </head>
 <body class="bg-lightbg dark:bg-darkbg text-gray-800 dark:text-gray-100 min-h-screen font-sans transition-colors duration-500 overflow-x-hidden relative flex flex-col items-center justify-center p-4 sm:p-6 selection:bg-accent selection:text-white">
 
+    <!-- Theme Switcher Floating Button -->
     <div class="absolute top-6 right-6 z-50">
         <button id="themeToggle" onclick="toggleTheme()" class="flex items-center space-x-2 px-4 py-2.5 rounded-full bg-white dark:bg-darkcard border border-gray-200 dark:border-gray-800 shadow-lg hover:scale-105 transition-all duration-300">
             <i id="themeIcon" class="fa-solid fa-moon text-accent text-sm"></i>
@@ -83,54 +77,45 @@
         </button>
     </div>
 
+    <!-- Background Orbs -->
     <div class="absolute top-10 left-10 w-80 h-80 bg-accent/15 rounded-full blur-3xl pointer-events-none animate-pulse-glow"></div>
     <div class="absolute bottom-10 right-10 w-96 h-96 bg-neonpink/10 rounded-full blur-3xl pointer-events-none animate-pulse-glow" style="animation-delay: 1.5s;"></div>
 
+    <!-- Main Asymmetric Container -->
     <div class="relative w-full max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 items-center z-10 py-12">
 
         <!-- Left Asymmetric Card: Main Notice -->
         <div class="lg:col-span-7 bg-white dark:bg-darkcard border border-gray-200/80 dark:border-gray-800/80 shadow-2xl p-8 sm:p-10 organic-blob-1 animate-float-slow transition-all duration-500 relative">
 
             <h1 class="font-display font-black text-3xl sm:text-5xl tracking-tight leading-none mb-4 text-gray-900 dark:text-white mt-2">
-                Tsuki está <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent via-neonpink to-neonteal">en MANTENIMIENTO</span>
+                Tsuki se está <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent via-neonpink to-neonteal">renovando</span>
             </h1>
 
-            <p class="text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed mb-6">
+            <p class="text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed mb-8">
                 Estamos implementando mejoras y actualizando los sistemas de <strong class="text-accent">Tsuki</strong> para ofrecerte la mejor experiencia posible muy pronto.
             </p>
 
-            <!-- Nuevo Diseño Circular/Radial Minimalista para el Progreso -->
-            <div class="flex items-center justify-between bg-gray-50 dark:bg-darkbg/60 p-4 sm:p-5 rounded-3xl border border-gray-200 dark:border-gray-800 mb-6 shadow-inner">
-                <div class="space-y-1">
-                    <span class="text-[10px] font-extrabold uppercase tracking-widest text-gray-400 block">Sincronización</span>
-                    <h4 class="font-display font-bold text-sm sm:text-base text-gray-900 dark:text-white">Actualización del Sistema</h4>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">Optimizando módulos y bases de datos</p>
+            <!-- Progress Bar Box -->
+            <div class="bg-gray-50 dark:bg-darkbg/60 p-4 sm:p-5 rounded-2xl border border-gray-200 dark:border-gray-800 space-y-3 mb-6">
+                <div class="flex justify-between text-xs font-bold text-gray-500 dark:text-gray-400">
+                    <span class="flex items-center space-x-1.5">
+                        <span class="w-2 h-2 rounded-full bg-neonteal animate-ping"></span>
+                        <span>Progreso de actualización</span>
+                    </span>
+                    <span class="text-neonteal font-mono">85%</span>
                 </div>
-                
-                <!-- Circular Animated Progress Dial -->
-                <div class="relative w-20 h-20 flex items-center justify-center flex-shrink-0">
-                    <!-- Glowing Background Ring Effect -->
-                    <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-accent to-neonpink opacity-20 animate-pulse-ring"></div>
-                    
-                    <!-- SVG Circular Progress -->
-                    <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-                        <path class="text-gray-200 dark:text-gray-800" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                        <path class="text-accent drop-shadow-[0_0_8px_rgba(99,102,241,0.6)] transition-all duration-1000" stroke-dasharray="85, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                    </svg>
-
-                    <!-- Center Percentage Text -->
-                    <div class="absolute flex flex-col items-center justify-center">
-                        <span class="font-mono font-black text-sm text-gray-900 dark:text-white">85%</span>
-                    </div>
+                <div class="w-full bg-gray-200 dark:bg-gray-800 h-2.5 rounded-full overflow-hidden p-0.5">
+                    <div class="bg-gradient-to-r from-accent via-neonpink to-neonteal h-full w-[85%] rounded-full shadow-lg"></div>
                 </div>
             </div>
 
+            <!-- Compact Action Buttons -->
             <div class="flex flex-row gap-3">
-                <button onclick="window.location.reload();" class="flex-1 bg-gradient-to-r from-accent to-accenthover text-white font-bold py-2.5 px-3 rounded-2xl text-[11px] transition-all transform hover:scale-[1.02] shadow-md shadow-accent/25 flex items-center justify-center space-x-1.5">
+                <button onclick="window.location.reload();" class="flex-1 bg-gradient-to-r from-accent to-accenthover text-white font-bold py-2 px-3 rounded-xl text-[11px] transition-all transform hover:scale-[1.02] shadow-md shadow-accent/25 flex items-center justify-center space-x-1">
                     <i class="fa-solid fa-rotate-right text-[10px]"></i>
                     <span>Verificar Estado</span>
                 </button>
-                <a href="https://discord.gg/NTzxDX7dFB" target="_blank" class="flex-1 bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold py-2.5 px-3 rounded-2xl text-[11px] transition-all transform hover:scale-[1.02] shadow-md shadow-[#5865F2]/25 flex items-center justify-center space-x-1.5">
+                <a href="https://discord.gg/NTzxDX7dFB" target="_blank" class="flex-1 bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold py-2 px-3 rounded-xl text-[11px] transition-all transform hover:scale-[1.02] shadow-md shadow-[#5865F2]/25 flex items-center justify-center space-x-1">
                     <i class="fa-brands fa-discord text-xs"></i>
                     <span>Comunidad Discord</span>
                 </a>
@@ -141,14 +126,19 @@
         <!-- Right Asymmetric Card: Details & Scrolling Commands List -->
         <div class="lg:col-span-5 flex flex-col gap-6">
             
+            <!-- Secondary Organic Card with Vertical Scrolling Ticker -->
             <div class="bg-white dark:bg-darkcard border border-gray-200/80 dark:border-gray-800/80 shadow-xl p-6 sm:p-7 organic-blob-2 animate-float-fast transition-all duration-500 relative">
                 <div class="flex items-center space-x-3 mb-4">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-neonpink to-accent flex items-center justify-center text-white text-base shadow-lg shadow-neonpink/30">
+                        <i class="fa-solid fa-terminal"></i>
+                    </div>
                     <div>
                         <h3 class="font-display font-bold text-base text-gray-900 dark:text-white">¿Qué hay de nuevo?</h3>
                         <p class="text-[10px] text-gray-400 font-medium">Nuevos comandos y optimizaciones</p>
                     </div>
                 </div>
-            
+                
+                <!-- Vertical Scrolling Ticker Container -->
                 <div class="h-44 overflow-hidden relative ticker-mask">
                     <div class="flex flex-col space-y-2.5 animate-ticker">
                         <!-- Set 1 (10 items) -->
@@ -183,7 +173,7 @@
                             <span class="text-accent font-bold text-xs font-mono">/lyrics</span>
                         </div>
 
-                        <!-- Set 2 -->
+                        <!-- Duplicate Set for Infinite Seamless Loop -->
                         <div class="flex items-center bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
                             <span class="text-accent font-bold text-xs font-mono">/help</span>
                         </div>
@@ -222,10 +212,12 @@
 
     </div>
 
+    <!-- Footer -->
     <footer class="mt-8 text-center text-xs text-gray-500 dark:text-gray-500 relative z-10 font-medium">
-        Tsuki Bot 
+        Tsuki Bot © 2026 • Todos los derechos reservados
     </footer>
 
+    <!-- Theme Toggle Script -->
     <script>
         const htmlElement = document.documentElement;
         const themeIcon = document.getElementById('themeIcon');
@@ -245,6 +237,7 @@
             }
         }
 
+        // Check saved preference on load
         if (localStorage.getItem('theme') === 'light') {
             htmlElement.classList.remove('dark');
             themeIcon.className = 'fa-solid fa-sun text-amber-500 text-sm';
