@@ -56,9 +56,6 @@
         .organic-blob-2 {
             border-radius: 65% 35% 55% 45% / 30% 60% 40% 70%;
         }
-        .organic-blob-3 {
-            border-radius: 30% 70% 50% 50% / 50% 30% 70% 50%;
-        }
     </style>
 </head>
 <body class="bg-lightbg dark:bg-darkbg text-gray-800 dark:text-gray-100 min-h-screen font-sans transition-colors duration-500 overflow-x-hidden relative flex flex-col items-center justify-center p-4 sm:p-6 selection:bg-accent selection:text-white">
@@ -123,32 +120,35 @@
 
         </div>
 
-        <!-- Right Asymmetric Card: Details & Decorative Visual -->
+        <!-- Right Asymmetric Card: Details & Commands List -->
         <div class="lg:col-span-5 flex flex-col gap-6">
             
-            <!-- Secondary Organic Card -->
+            <!-- Secondary Organic Card with Commands List -->
             <div class="bg-white dark:bg-darkcard border border-gray-200/80 dark:border-gray-800/80 shadow-xl p-6 sm:p-8 organic-blob-2 animate-float-fast transition-all duration-500 relative">
                 <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-neonpink to-accent flex items-center justify-center text-white text-xl shadow-lg shadow-neonpink/30 mb-4">
-                    <i class="fa-solid fa-bolt"></i>
+                    <i class="fa-solid fa-terminal"></i>
                 </div>
-                <h3 class="font-display font-bold text-lg mb-2 text-gray-900 dark:text-white">¿Qué hay de nuevo?</h3>
-                <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                    Nuevos comandos optimizados, mayor velocidad de respuesta y una interfaz completamente renovada para todos los servidores.
-                </p>
-            </div>
-
-            <!-- Mini Status Badge Card -->
-            <div class="bg-gradient-to-br from-accent/10 to-neonteal/10 dark:from-accent/20 dark:to-neonteal/20 border border-accent/20 p-6 organic-blob-3 flex items-center justify-between shadow-lg">
-                <div class="space-y-1">
-                    <span class="text-[10px] uppercase tracking-widest text-accent font-extrabold block">Estado de Red</span>
-                    <span class="text-sm font-bold text-gray-800 dark:text-white flex items-center space-x-2">
-                        <i class="fa-solid fa-shield-halved text-neonteal"></i>
-                        <span>Sistemas Protegidos</span>
-                    </span>
-                </div>
-                <div class="w-10 h-10 rounded-full bg-white dark:bg-darkcard shadow-md flex items-center justify-center text-neonteal font-bold">
-                    <i class="fa-solid fa-check"></i>
-                </div>
+                <h3 class="font-display font-bold text-lg mb-4 text-gray-900 dark:text-white">¿Qué hay de nuevo?</h3>
+                
+                <!-- Command List -->
+                <ul class="space-y-2.5 text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-mono">
+                    <li class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
+                        <span class="text-accent font-bold">/help</span>
+                        <span class="text-[11px] text-gray-400 dark:text-gray-500">- Guía interactiva</span>
+                    </li>
+                    <li class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
+                        <span class="text-neonpink font-bold">/play</span>
+                        <span class="text-[11px] text-gray-400 dark:text-gray-500">- Audio de alta calidad</span>
+                    </li>
+                    <li class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
+                        <span class="text-neonteal font-bold">/stats</span>
+                        <span class="text-[11px] text-gray-400 dark:text-gray-500">- Métricas del bot</span>
+                    </li>
+                    <li class="flex items-center space-x-2 bg-gray-50 dark:bg-darkbg/60 p-2.5 rounded-xl border border-gray-200 dark:border-gray-800">
+                        <span class="text-accent font-bold">/ban</span>
+                        <span class="text-[11px] text-gray-400 dark:text-gray-500">- Moderación avanzada</span>
+                    </li>
+                </ul>
             </div>
 
         </div>
@@ -189,3 +189,4 @@
     </script>
 </body>
 </html>
+
