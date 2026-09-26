@@ -1,29 +1,48 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tsuki En Mantenimiento</title>
+    <title>Tsuki - En Mantenimiento</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
                     colors: {
-                        darkbg: '#070A10',
-                        cardbg: '#0F1626',
-                        accent: '#3B82F6',
-                        neonpurple: '#8B5CF6'
+                        darkbg: '#080C14',
+                        lightbg: '#F3F6FD',
+                        darkcard: '#111827',
+                        lightcard: '#FFFFFF',
+                        accent: '#6366F1',
+                        accenthover: '#4F46E5',
+                        neonpink: '#EC4899',
+                        neonteal: '#14B8A6'
                     },
                     animation: {
-                        'float': 'float 5s ease-in-out infinite',
-                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float-slow': 'floatSlow 7s ease-in-out infinite',
+                        'float-fast': 'floatFast 4s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
                     },
                     keyframes: {
-                        float: {
+                        floatSlow: {
                             '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
-                            '50%': { transform: 'translateY(-8px) rotate(0.5deg)' },
+                            '50%': { transform: 'translateY(-12px) rotate(1.5deg)' },
+                        },
+                        floatFast: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-8px) rotate(-2deg)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '0.4' },
+                            '50%': { opacity: '0.8' },
                         }
                     }
                 }
@@ -31,65 +50,142 @@
         }
     </script>
     <style>
-        body {
-            background-color: #070A10;
-            background-image: radial-gradient(rgba(59, 130, 246, 0.15) 1px, transparent 1px);
-            background-size: 28px 28px;
+        .organic-blob-1 {
+            border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
         }
-        .organic-card {
-            background: linear-gradient(145deg, #0F1626, rgba(7, 10, 16, 0.95));
-            backdrop-filter: blur(16px);
-            border-radius: 2rem;
-            border: 1px solid rgba(59, 130, 246, 0.12);
-            box-shadow: 0 20px 40px -15px rgba(59, 130, 246, 0.25);
+        .organic-blob-2 {
+            border-radius: 65% 35% 55% 45% / 30% 60% 40% 70%;
+        }
+        .organic-blob-3 {
+            border-radius: 30% 70% 50% 50% / 50% 30% 70% 50%;
         }
     </style>
 </head>
-<body class="text-gray-100 min-h-screen flex flex-col items-center justify-center font-sans selection:bg-accent selection:text-white p-4 relative overflow-hidden">
+<body class="bg-lightbg dark:bg-darkbg text-gray-800 dark:text-gray-100 min-h-screen font-sans transition-colors duration-500 overflow-x-hidden relative flex flex-col items-center justify-center p-4 sm:p-6 selection:bg-accent selection:text-white">
 
-    <div class="absolute -top-32 -left-32 w-96 h-96 bg-accent/10 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-neonpurple/10 rounded-full blur-3xl pointer-events-none"></div>
-
-    <div class="organic-card p-8 sm:p-12 max-w-lg w-full text-center space-y-6 relative z-10 shadow-2xl border-2 border-accent/30 animate-fade-in">
-        
-        <div class="w-20 h-20 rounded-3xl bg-gradient-to-br from-accent to-neonpurple flex items-center justify-center text-white mx-auto shadow-lg shadow-accent/40 animate-float">
-            <i class="fa-solid fa-screwdriver-wrench text-3xl"></i>
-        </div>
-
-        <div class="space-y-2">
-            <span class="text-xs bg-accent/20 text-accent font-extrabold px-3.5 py-1.5 rounded-full border border-accent/30 uppercase tracking-widest inline-block">
-                <i class="fa-solid fa-triangle-exclamation mr-1"></i> Sitio en Mantenimiento
-            </span>
-            <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-wide">Volveremos Muy Pronto</h1>
-            <p class="text-xs sm:text-sm text-gray-400 leading-relaxed pt-2">
-                Estamos realizando mejoras y optimizaciones en la plataforma de <strong class="text-accent">Tsuki</strong> para ofrecerte una mejor experiencia. Disculpa las molestias.
-            </p>
-        </div>
-
-        <div class="bg-darkbg p-4 rounded-2xl border border-gray-800 space-y-2 text-left">
-            <div class="flex justify-between text-xs text-gray-400 font-semibold">
-                <span>Estado de actualización</span>
-                <span class="text-accent animate-pulse">En proceso...</span>
-            </div>
-            <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
-                <div class="bg-gradient-to-r from-accent to-neonpurple h-full w-3/4 rounded-full"></div>
-            </div>
-        </div>
-
-        <div class="pt-2 space-y-3">
-            <button onclick="window.location.reload();" class="w-full bg-gradient-to-r from-accent via-blue-600 to-neonpurple hover:opacity-95 text-white py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all transform hover:scale-[1.02] shadow-xl shadow-accent/30 flex items-center justify-center space-x-2">
-                <i class="fa-solid fa-rotate-right"></i>
-                <span>Comprobar Estado</span>
-            </button>
-
-            <a href="https://discord.gg/NTzxDX7dFB" target="_blank" class="w-full bg-[#5865F2] hover:bg-[#4752C4] text-white py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all transform hover:scale-[1.02] shadow-xl shadow-[#5865F2]/30 flex items-center justify-center space-x-2">
-                <i class="fa-brands fa-discord text-base"></i>
-                <span>Únete a nuestro Discord</span>
-            </a>
-        </div>
-
-        <div class="text-[10px] text-gray-500 pt-2 border-t border-gray-800/80">Tsuki Bot © 2026</div>
+    <!-- Theme Switcher Floating Button -->
+    <div class="absolute top-6 right-6 z-50">
+        <button id="themeToggle" onclick="toggleTheme()" class="flex items-center space-x-2 px-4 py-2.5 rounded-full bg-white dark:bg-darkcard border border-gray-200 dark:border-gray-800 shadow-lg hover:scale-105 transition-all duration-300">
+            <i id="themeIcon" class="fa-solid fa-moon text-accent text-sm"></i>
+            <span id="themeText" class="text-xs font-bold tracking-wide uppercase">Modo Oscuro</span>
+        </button>
     </div>
 
+    <!-- Background Orbs -->
+    <div class="absolute top-10 left-10 w-80 h-80 bg-accent/15 rounded-full blur-3xl pointer-events-none animate-pulse-glow"></div>
+    <div class="absolute bottom-10 right-10 w-96 h-96 bg-neonpink/10 rounded-full blur-3xl pointer-events-none animate-pulse-glow" style="animation-delay: 1.5s;"></div>
+
+    <!-- Main Asymmetric Container -->
+    <div class="relative w-full max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6 items-center z-10 py-12">
+
+        <!-- Left Asymmetric Card: Main Notice -->
+        <div class="lg:col-span-7 bg-white dark:bg-darkcard border border-gray-200/80 dark:border-gray-800/80 shadow-2xl p-8 sm:p-10 organic-blob-1 animate-float-slow transition-all duration-500 relative">
+            
+            <!-- Floating Badge -->
+            <div class="inline-flex items-center space-x-2 bg-accent/10 dark:bg-accent/20 text-accent px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-widest border border-accent/20 mb-6 shadow-sm">
+                <i class="fa-solid fa-screwdriver-wrench animate-spin"></i>
+                <span>Mantenimiento Activo</span>
+            </div>
+
+            <h1 class="font-display font-black text-3xl sm:text-5xl tracking-tight leading-none mb-4 text-gray-900 dark:text-white">
+                Tsuki se está <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent via-neonpink to-neonteal">renovando</span>
+            </h1>
+
+            <p class="text-gray-600 dark:text-gray-400 text-sm sm:text-base leading-relaxed mb-8">
+                Estamos implementando mejoras y actualizando los sistemas de <strong class="text-accent">Tsuki</strong> para ofrecerte la mejor experiencia posible muy pronto.
+            </p>
+
+            <!-- Progress Bar Box -->
+            <div class="bg-gray-50 dark:bg-darkbg/60 p-4 sm:p-5 rounded-2xl border border-gray-200 dark:border-gray-800 space-y-3 mb-6">
+                <div class="flex justify-between text-xs font-bold text-gray-500 dark:text-gray-400">
+                    <span class="flex items-center space-x-1.5">
+                        <span class="w-2 h-2 rounded-full bg-neonteal animate-ping"></span>
+                        <span>Progreso de actualización</span>
+                    </span>
+                    <span class="text-neonteal font-mono">85%</span>
+                </div>
+                <div class="w-full bg-gray-200 dark:bg-gray-800 h-2.5 rounded-full overflow-hidden p-0.5">
+                    <div class="bg-gradient-to-r from-accent via-neonpink to-neonteal h-full w-[85%] rounded-full shadow-lg"></div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-3">
+                <button onclick="window.location.reload();" class="flex-1 bg-gradient-to-r from-accent to-accenthover text-white font-bold py-3.5 px-6 rounded-2xl text-sm transition-all transform hover:scale-[1.02] shadow-lg shadow-accent/25 flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-rotate-right"></i>
+                    <span>Verificar Estado</span>
+                </button>
+                <a href="https://discord.gg/NTzxDX7dFB" target="_blank" class="flex-1 bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold py-3.5 px-6 rounded-2xl text-sm transition-all transform hover:scale-[1.02] shadow-lg shadow-[#5865F2]/25 flex items-center justify-center space-x-2">
+                    <i class="fa-brands fa-discord text-base"></i>
+                    <span>Comunidad Discord</span>
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Right Asymmetric Card: Details & Decorative Visual -->
+        <div class="lg:col-span-5 flex flex-col gap-6">
+            
+            <!-- Secondary Organic Card -->
+            <div class="bg-white dark:bg-darkcard border border-gray-200/80 dark:border-gray-800/80 shadow-xl p-6 sm:p-8 organic-blob-2 animate-float-fast transition-all duration-500 relative">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-neonpink to-accent flex items-center justify-center text-white text-xl shadow-lg shadow-neonpink/30 mb-4">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <h3 class="font-display font-bold text-lg mb-2 text-gray-900 dark:text-white">¿Qué hay de nuevo?</h3>
+                <p class="text-xs sm:text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                    Nuevos comandos optimizados, mayor velocidad de respuesta y una interfaz completamente renovada para todos los servidores.
+                </p>
+            </div>
+
+            <!-- Mini Status Badge Card -->
+            <div class="bg-gradient-to-br from-accent/10 to-neonteal/10 dark:from-accent/20 dark:to-neonteal/20 border border-accent/20 p-6 organic-blob-3 flex items-center justify-between shadow-lg">
+                <div class="space-y-1">
+                    <span class="text-[10px] uppercase tracking-widest text-accent font-extrabold block">Estado de Red</span>
+                    <span class="text-sm font-bold text-gray-800 dark:text-white flex items-center space-x-2">
+                        <i class="fa-solid fa-shield-halved text-neonteal"></i>
+                        <span>Sistemas Protegidos</span>
+                    </span>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-white dark:bg-darkcard shadow-md flex items-center justify-center text-neonteal font-bold">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-8 text-center text-xs text-gray-500 dark:text-gray-500 relative z-10 font-medium">
+        Tsuki Bot © 2026 • Todos los derechos reservados
+    </footer>
+
+    <!-- Theme Toggle Script -->
+    <script>
+        const htmlElement = document.documentElement;
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+
+        function toggleTheme() {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                themeIcon.className = 'fa-solid fa-sun text-amber-500 text-sm';
+                themeText.textContent = 'Modo Claro';
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                themeIcon.className = 'fa-solid fa-moon text-accent text-sm';
+                themeText.textContent = 'Modo Oscuro';
+            }
+        }
+
+        // Check saved preference on load
+        if (localStorage.getItem('theme') === 'light') {
+            htmlElement.classList.remove('dark');
+            themeIcon.className = 'fa-solid fa-sun text-amber-500 text-sm';
+            themeText.textContent = 'Modo Claro';
+        }
+    </script>
 </body>
 </html>
