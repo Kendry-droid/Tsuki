@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Centro Psicoterapéutico Placidez | Bienestar Integral y Psicológico</title>
-    <!-- Tailwind CSS CDN -->
+    
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- Google Fonts: Poppins & Fredoka -->
+    
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome para iconos -->
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
@@ -81,7 +81,6 @@
 </head>
 <body class="bg-purple-50/30 text-slate-700">
 
-    <!-- BARRA DE NAVEGACIÓN -->
     <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-purple-100 animate-fade-down">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <div class="flex items-center space-x-3 group cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
@@ -94,7 +93,7 @@
                 </div>
             </div>
 
-            <!-- Menú Escritorio -->
+           
             <nav class="hidden md:flex items-center space-x-8 font-medium text-slate-600">
                 <a href="#inicio" class="hover:text-purple-600 transition hover:scale-105 transform">Inicio</a>
                 <a href="#nosotros" class="hover:text-purple-600 transition hover:scale-105 transform">Filosofía</a>
@@ -103,7 +102,6 @@
                 <a href="#contacto" class="bg-purple-700 text-white px-5 py-2.5 rounded-full shadow-md hover:bg-purple-800 transition hover:scale-105 transform shadow-purple-500/25">Contacto</a>
             </nav>
 
-            <!-- Botón Menú Hamburguesa Móvil -->
             <div class="md:hidden flex items-center">
                 <button id="menu-btn" onclick="toggleMobileMenu()" class="text-purple-900 focus:outline-none p-2 text-2xl">
                     <i class="fa-solid fa-bars" id="menu-icon"></i>
@@ -111,7 +109,7 @@
             </div>
         </div>
 
-        <!-- Menú Desplegable Móvil -->
+       
         <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-purple-100 px-6 pt-4 pb-6 space-y-3 shadow-lg">
             <a href="#inicio" onclick="toggleMobileMenu()" class="block font-medium text-slate-700 hover:text-purple-700 py-1">Inicio</a>
             <a href="#nosotros" onclick="toggleMobileMenu()" class="block font-medium text-slate-700 hover:text-purple-700 py-1">Filosofía</a>
@@ -123,7 +121,6 @@
         </div>
     </header>
 
-    <!-- SECCIÓN INICIO (HERO) -->
     <section id="inicio" class="relative overflow-hidden pt-10 pb-16 sm:pt-16 sm:pb-24 lg:pt-20 lg:pb-32 bg-gradient-to-b from-purple-50/40 via-white to-purple-50/30">
         <div class="absolute top-10 left-5 w-20 h-20 bg-purple-300/30 rounded-full blur-xl animate-float pointer-events-none"></div>
         <div class="absolute bottom-10 right-10 w-32 h-32 bg-emerald-300/30 rounded-full blur-2xl animate-float-delayed pointer-events-none"></div>
@@ -150,7 +147,7 @@
                     </div>
                 </div>
 
-                <!-- LOGOTIPO EN GRANDE CON ANIMACIÓN -->
+               
                 <div class="lg:col-span-5 flex justify-center animate-fade-down">
                     <div class="relative w-72 sm:w-80 lg:w-full max-w-md aspect-square bg-gradient-to-br from-purple-700 to-emerald-700 rounded-[3rem] p-4 shadow-2xl rotate-1 flex items-center justify-center animate-float">
                         <div class="absolute -top-4 -left-4 sm:-top-6 sm:-left-6 bg-white p-3 sm:p-4 rounded-2xl shadow-xl animate-bounce">
@@ -172,10 +169,10 @@
         </div>
     </section>
 
-    <!-- Línea asimétrica morada con movimiento -->
+
     <div class="relative w-full h-10 overflow-hidden"><div class="purple-wave-path"></div></div>
 
-    <!-- SECCIÓN FILOSOFÍA Y VALORES -->
+
     <section id="nosotros" class="py-16 sm:py-20 bg-white relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -202,7 +199,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Bloques decorativos -->
+                
                 <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div class="space-y-4">
                         <div class="bg-purple-100 p-6 rounded-[2.5rem] h-48 flex flex-col justify-end shadow-md transition transform hover:-translate-y-2">
@@ -229,10 +226,10 @@
         </div>
     </section>
 
-    <!-- Línea asimétrica morada con movimiento -->
+
     <div class="relative w-full h-10 overflow-hidden"><div class="purple-wave-path" style="animation-direction: reverse;"></div></div>
 
-    <!-- SECCIÓN SERVICIOS / ENFOQUES -->
+
     <section id="servicios" class="py-16 sm:py-20 bg-purple-50/40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
@@ -242,7 +239,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Figura 1 -->
+             
                 <div class="shape-blob-1 bg-white p-8 shadow-xl border-4 border-purple-300 relative overflow-hidden flex flex-col justify-between group">
                     <div class="absolute -right-10 -top-10 w-32 h-32 bg-purple-100/60 rounded-full pointer-events-none group-hover:scale-125 transition duration-500"></div>
                     <div>
@@ -260,7 +257,6 @@
                     </div>
                 </div>
 
-                <!-- Figura 2 -->
                 <div class="shape-blob-2 bg-gradient-to-br from-purple-700 to-indigo-800 text-white p-8 shadow-xl md:-translate-y-4 relative overflow-hidden flex flex-col justify-between group">
                     <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-white/10 rounded-full pointer-events-none group-hover:scale-125 transition duration-500"></div>
                     <div>
@@ -278,7 +274,7 @@
                     </div>
                 </div>
 
-                <!-- Figura 3 -->
+ 
                 <div class="shape-blob-3 bg-white p-8 shadow-xl border-4 border-emerald-300 relative overflow-hidden flex flex-col justify-between group">
                     <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-emerald-100/60 rounded-full pointer-events-none group-hover:scale-125 transition duration-500"></div>
                     <div>
@@ -299,10 +295,10 @@
         </div>
     </section>
 
-    <!-- Línea asimétrica morada con movimiento -->
+
     <div class="relative w-full h-10 overflow-hidden"><div class="purple-wave-path"></div></div>
 
-    <!-- NUEVA SECCIÓN: INSTAGRAM FEED AUTOMÁTICO CON ELFSIGHT -->
+    
     <section class="py-16 sm:py-20 bg-gradient-to-b from-white to-purple-50/40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
             <div class="inline-block bg-purple-100 text-purple-800 font-semibold px-3 py-1 rounded-lg text-sm">
@@ -313,7 +309,7 @@
                 Sigue nuestro día a día, consejos de bienestar y anuncios importantes directamente desde nuestro perfil <a href="https://instagram.com/placidezalvarado" target="_blank" class="text-purple-700 font-semibold hover:underline">@placidezalvarado</a>.
             </p>
 
-            <!-- Contenedor del Widget de Elfsight -->
+            
             <div class="mt-8 bg-white p-6 rounded-[2.5rem] shadow-xl border border-purple-100 min-h-[300px]">
                 <script src="https://elfsightcdn.com/platform.js" async></script>
                 <div class="elfsight-app-c683ca96-49b5-499b-8a09-2710086678fa" data-elfsight-app-lazy></div>
@@ -321,10 +317,10 @@
         </div>
     </section>
 
-    <!-- Línea asimétrica morada con movimiento -->
+    
     <div class="relative w-full h-10 overflow-hidden"><div class="purple-wave-path" style="animation-direction: reverse;"></div></div>
 
-    <!-- SECCIÓN UBICACIÓN Y CONTACTO -->
+
     <section id="ubicacion" class="py-16 sm:py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -383,7 +379,7 @@
                     </div>
                 </div>
                 
-                <!-- Formulario de contacto directo a WhatsApp -->
+          
                 <div id="contacto" class="lg:col-span-6 bg-gradient-to-br from-purple-900 to-slate-900 text-white rounded-[2.5rem] sm:rounded-[3rem] p-6 sm:p-10 shadow-2xl relative overflow-hidden">
                     <div class="absolute top-0 right-0 p-8 opacity-10 text-8xl pointer-events-none"><i class="fa-solid fa-brain"></i></div>
                     <div class="mb-6 space-y-2">
@@ -414,7 +410,7 @@
         </div>
     </section>
 
-    <!-- PIE DE PÁGINA -->
+    
     <footer class="bg-slate-950 text-slate-400 py-10 border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
             <div class="flex items-center space-x-3">
@@ -431,9 +427,8 @@
         </div>
     </footer>
 
-    <!-- SCRIPT DE JAVASCRIPT -->
     <script>
-        // Función para abrir/cerrar el menú en dispositivos móviles
+     
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
             const icon = document.getElementById('menu-icon');
@@ -449,7 +444,6 @@
             }
         }
 
-        // Función para enviar formulario directamente a WhatsApp
         function sendToWhatsApp(event) {
             event.preventDefault();
 
