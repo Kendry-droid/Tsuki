@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Centro Psicoterapéutico Placidez | Bienestar Integral y Psicológico</title>
-    
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    
+    <!-- Google Fonts: Poppins & Fredoka -->
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+    <!-- FontAwesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
@@ -93,7 +93,7 @@
                 </div>
             </div>
 
-           
+       
             <nav class="hidden md:flex items-center space-x-8 font-medium text-slate-600">
                 <a href="#inicio" class="hover:text-purple-600 transition hover:scale-105 transform">Inicio</a>
                 <a href="#nosotros" class="hover:text-purple-600 transition hover:scale-105 transform">Filosofía</a>
@@ -102,6 +102,7 @@
                 <a href="#contacto" class="bg-purple-700 text-white px-5 py-2.5 rounded-full shadow-md hover:bg-purple-800 transition hover:scale-105 transform shadow-purple-500/25">Contacto</a>
             </nav>
 
+            
             <div class="md:hidden flex items-center">
                 <button id="menu-btn" onclick="toggleMobileMenu()" class="text-purple-900 focus:outline-none p-2 text-2xl">
                     <i class="fa-solid fa-bars" id="menu-icon"></i>
@@ -109,7 +110,6 @@
             </div>
         </div>
 
-       
         <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-purple-100 px-6 pt-4 pb-6 space-y-3 shadow-lg">
             <a href="#inicio" onclick="toggleMobileMenu()" class="block font-medium text-slate-700 hover:text-purple-700 py-1">Inicio</a>
             <a href="#nosotros" onclick="toggleMobileMenu()" class="block font-medium text-slate-700 hover:text-purple-700 py-1">Filosofía</a>
@@ -121,6 +121,7 @@
         </div>
     </header>
 
+    
     <section id="inicio" class="relative overflow-hidden pt-10 pb-16 sm:pt-16 sm:pb-24 lg:pt-20 lg:pb-32 bg-gradient-to-b from-purple-50/40 via-white to-purple-50/30">
         <div class="absolute top-10 left-5 w-20 h-20 bg-purple-300/30 rounded-full blur-xl animate-float pointer-events-none"></div>
         <div class="absolute bottom-10 right-10 w-32 h-32 bg-emerald-300/30 rounded-full blur-2xl animate-float-delayed pointer-events-none"></div>
@@ -147,7 +148,7 @@
                     </div>
                 </div>
 
-               
+              
                 <div class="lg:col-span-5 flex justify-center animate-fade-down">
                     <div class="relative w-72 sm:w-80 lg:w-full max-w-md aspect-square bg-gradient-to-br from-purple-700 to-emerald-700 rounded-[3rem] p-4 shadow-2xl rotate-1 flex items-center justify-center animate-float">
                         <div class="absolute -top-4 -left-4 sm:-top-6 sm:-left-6 bg-white p-3 sm:p-4 rounded-2xl shadow-xl animate-bounce">
@@ -172,7 +173,7 @@
 
     <div class="relative w-full h-10 overflow-hidden"><div class="purple-wave-path"></div></div>
 
-
+   
     <section id="nosotros" class="py-16 sm:py-20 bg-white relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -199,7 +200,7 @@
                         </div>
                     </div>
                 </div>
-                
+             
                 <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div class="space-y-4">
                         <div class="bg-purple-100 p-6 rounded-[2.5rem] h-48 flex flex-col justify-end shadow-md transition transform hover:-translate-y-2">
@@ -226,10 +227,10 @@
         </div>
     </section>
 
-
+    
     <div class="relative w-full h-10 overflow-hidden"><div class="purple-wave-path" style="animation-direction: reverse;"></div></div>
 
-
+    
     <section id="servicios" class="py-16 sm:py-20 bg-purple-50/40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
@@ -239,7 +240,7 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-             
+          
                 <div class="shape-blob-1 bg-white p-8 shadow-xl border-4 border-purple-300 relative overflow-hidden flex flex-col justify-between group">
                     <div class="absolute -right-10 -top-10 w-32 h-32 bg-purple-100/60 rounded-full pointer-events-none group-hover:scale-125 transition duration-500"></div>
                     <div>
@@ -257,6 +258,7 @@
                     </div>
                 </div>
 
+            
                 <div class="shape-blob-2 bg-gradient-to-br from-purple-700 to-indigo-800 text-white p-8 shadow-xl md:-translate-y-4 relative overflow-hidden flex flex-col justify-between group">
                     <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-white/10 rounded-full pointer-events-none group-hover:scale-125 transition duration-500"></div>
                     <div>
@@ -274,7 +276,6 @@
                     </div>
                 </div>
 
- 
                 <div class="shape-blob-3 bg-white p-8 shadow-xl border-4 border-emerald-300 relative overflow-hidden flex flex-col justify-between group">
                     <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-emerald-100/60 rounded-full pointer-events-none group-hover:scale-125 transition duration-500"></div>
                     <div>
@@ -298,7 +299,7 @@
 
     <div class="relative w-full h-10 overflow-hidden"><div class="purple-wave-path"></div></div>
 
-    
+  
     <section class="py-16 sm:py-20 bg-gradient-to-b from-white to-purple-50/40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
             <div class="inline-block bg-purple-100 text-purple-800 font-semibold px-3 py-1 rounded-lg text-sm">
@@ -319,7 +320,6 @@
 
     
     <div class="relative w-full h-10 overflow-hidden"><div class="purple-wave-path" style="animation-direction: reverse;"></div></div>
-
 
     <section id="ubicacion" class="py-16 sm:py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -379,7 +379,6 @@
                     </div>
                 </div>
                 
-          
                 <div id="contacto" class="lg:col-span-6 bg-gradient-to-br from-purple-900 to-slate-900 text-white rounded-[2.5rem] sm:rounded-[3rem] p-6 sm:p-10 shadow-2xl relative overflow-hidden">
                     <div class="absolute top-0 right-0 p-8 opacity-10 text-8xl pointer-events-none"><i class="fa-solid fa-brain"></i></div>
                     <div class="mb-6 space-y-2">
@@ -411,6 +410,109 @@
     </section>
 
     
+    <div id="modal-privacidad" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-3xl max-h-[85vh] rounded-[2.5rem] shadow-2xl border border-purple-100 flex flex-col overflow-hidden animate-fade-down">
+            <!-- Cabecera del Modal -->
+            <div class="px-6 py-5 bg-purple-50 border-b border-purple-100 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-purple-100 text-purple-700 rounded-xl flex items-center justify-center text-lg shrink-0">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-kid text-xl font-bold text-slate-800">Política de Privacidad</h3>
+                        <p class="text-xs text-purple-600 font-medium">Actualizado: 6 de octubre de 2026</p>
+                    </div>
+                </div>
+                <button onclick="closeModal('modal-privacidad')" class="w-10 h-10 bg-white hover:bg-purple-100 text-slate-600 rounded-full flex items-center justify-center transition shadow-xs">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            
+            <div class="p-6 sm:p-8 overflow-y-auto space-y-4 text-slate-600 text-sm leading-relaxed">
+                <p>En el <strong>Centro Psicoterapéutico Placidez</strong> valoramos y respetamos la privacidad de nuestros pacientes y visitantes. Esta Política de Privacidad explica qué información recopilamos, cómo la usamos y cuáles son tus derechos en relación con ella.</p>
+
+                <h4 class="font-kid text-base font-bold text-slate-800 pt-2">1. Información que recopilamos</h4>
+                <p>Dependiendo de cómo interactúes con nuestro sitio web y nuestros servicios de atención, podemos recopilar la siguiente información:</p>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li><strong>Datos de navegación</strong>: Dirección IP, tipo de navegador, proveedor de servicios de internet (ISP), páginas de referencia y marca de tiempo mediante cookies y herramientas de análisis técnico.</li>
+                    <li><strong>Datos de contacto (si aplica)</strong>: Nombre, número de teléfono o detalles proporcionados voluntariamente al agendar una consulta o escribirnos por WhatsApp.</li>
+                </ul>
+
+                <h4 class="font-kid text-base font-bold text-slate-800 pt-2">2. Uso de la información</h4>
+                <p>Utilizamos la información recopilada exclusivamente para los siguientes propósitos:</p>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li>Gestionar la coordinación de citas, consultas y atención terapéutica.</li>
+                    <li>Operar, mantener y mejorar la calidad de nuestros servicios y sitio web.</li>
+                    <li>Garantizar una comunicación fluida y segura con los pacientes.</li>
+                </ul>
+
+                <h4 class="font-kid text-base font-bold text-slate-800 pt-2">3. Confidencialidad y Secreto Profesional</h4>
+                <p>Toda la información clínica, personal y terapéutica compartida con nuestros especialistas está estrictamente protegida bajo el secreto profesional y las normativas de confidencialidad de la salud mental.</p>
+
+                <h4 class="font-kid text-base font-bold text-slate-800 pt-2">4. Cookies y tecnologías de seguimiento</h4>
+                <p>El Sitio Web utiliza cookies básicas para optimizar la experiencia de navegación. Puedes configurar tu navegador para rechazarlas, aunque esto podría afectar algunas funciones secundarias.</p>
+
+                <h4 class="font-kid text-base font-bold text-slate-800 pt-2">5. Enlaces a terceros</h4>
+                <p>Nuestro sitio puede incluir enlaces a redes sociales externas (como Instagram). No nos hacemos responsables de las políticas de privacidad de plataformas externas.</p>
+
+                <h4 class="font-kid text-base font-bold text-slate-800 pt-2">6. Actualizaciones de la política</h4>
+                <p>Nos reservamos el derecho de actualizar esta política en cualquier momento para reflejar mejoras o cambios normativos.</p>
+
+                <h4 class="font-kid text-base font-bold text-slate-800 pt-2">7. Contacto</h4>
+                <p>Si tienes dudas sobre nuestra política de privacidad, puedes contactarnos directamente a través del teléfono (849) 571-0325 o en nuestro centro.</p>
+            </div>
+            <!-- Pie del Modal -->
+            <div class="px-6 py-4 bg-purple-50/50 border-t border-purple-100 flex justify-end">
+                <button onclick="closeModal('modal-privacidad')" class="bg-purple-700 hover:bg-purple-800 text-white font-medium px-6 py-2.5 rounded-xl text-sm shadow-md transition">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+   
+    <div id="modal-terminos" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-3xl max-h-[85vh] rounded-[2.5rem] shadow-2xl border border-purple-100 flex flex-col overflow-hidden animate-fade-down">
+            <!-- Cabecera del Modal -->
+            <div class="px-6 py-5 bg-purple-50 border-b border-purple-100 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-purple-700 text-white rounded-xl flex items-center justify-center text-lg shrink-0">
+                        <i class="fa-solid fa-file-contract"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-kid text-xl font-bold text-slate-800">Términos y Condiciones de Uso</h3>
+                        <p class="text-xs text-purple-600 font-medium">Actualizado: 6 de octubre de 2026</p>
+                    </div>
+                </div>
+                <button onclick="closeModal('modal-terminos')" class="w-10 h-10 bg-white hover:bg-purple-100 text-slate-600 rounded-full flex items-center justify-center transition shadow-xs">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+         
+            <div class="p-6 sm:p-8 overflow-y-auto space-y-4 text-slate-600 text-sm leading-relaxed">
+                <p>Bienvenido al sitio web del <strong>Centro Psicoterapéutico Placidez</strong>. Al acceder y utilizar este sitio, aceptas cumplir con los siguientes Términos y Condiciones de Uso.</p>
+
+                <h4 class="font-kid text-base font-bold text-slate-800 pt-2">1. Propósito Informativo</h4>
+                <p>Este sitio web tiene como objetivo principal informar sobre nuestros servicios terapéuticos, áreas de especialidad, ubicación y facilitar vías de contacto para agendar citas.</p>
+
+                <h4 class="font-kid text-base font-bold text-slate-800 pt-2">2. Propiedad Intelectual</h4>
+                <p>Todo el contenido visual, textos, logotipos, diseño y estructura de esta página web son propiedad exclusiva del Centro Psicoterapéutico Placidez. Queda prohibida su reproducción total o parcial sin autorización previa.</p>
+
+                <h4 class="font-kid text-base font-bold text-slate-800 pt-2">3. Citas y Cancelaciones</h4>
+                <p>Las citas agendadas a través de nuestros canales de contacto (como WhatsApp o teléfono) están sujetas a confirmación y disponibilidad de nuestros especialistas. Solicitamos puntualidad y aviso previo en caso de reprogramación.</p>
+
+                <h4 class="font-kid text-base font-bold text-slate-800 pt-2">4. Limitación de Responsabilidad</h4>
+                <p>La información contenida en este sitio web es puramente orientativa y no sustituye en ningún caso una consulta psicológica, diagnóstica o psiquiátrica presencial con un profesional calificado.</p>
+
+                <h4 class="font-kid text-base font-bold text-slate-800 pt-2">5. Modificaciones</h4>
+                <p>Nos reservamos el derecho de modificar estos términos en cualquier momento para adaptarlos a nuevas normativas o servicios ofrecidos por el centro.</p>
+            </div>
+            <!-- Pie del Modal -->
+            <div class="px-6 py-4 bg-purple-50/50 border-t border-purple-100 flex justify-end">
+                <button onclick="closeModal('modal-terminos')" class="bg-purple-700 hover:bg-purple-800 text-white font-medium px-6 py-2.5 rounded-xl text-sm shadow-md transition">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+
     <footer class="bg-slate-950 text-slate-400 py-10 border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
             <div class="flex items-center space-x-3">
@@ -419,7 +521,17 @@
                 </div>
                 <span class="font-kid text-base sm:text-lg font-bold text-white">Centro Psicoterapéutico Placidez</span>
             </div>
-            <p class="text-xs">© 2026 Centro Psicoterapéutico Placidez. Tel: (849) 571-0325.</p>
+            
+            <!-- Derechos y Enlaces que abren los Modales -->
+            <div class="text-xs space-y-1">
+                <p>© 2026 Centro Psicoterapéutico Placidez. Todos los derechos reservados. Tel: (849) 571-0325.</p>
+                <div class="flex justify-center md:justify-start space-x-4">
+                    <button onclick="openModal('modal-privacidad')" class="hover:text-purple-400 underline transition cursor-pointer">Política de Privacidad</button>
+                    <span>•</span>
+                    <button onclick="openModal('modal-terminos')" class="hover:text-purple-400 underline transition cursor-pointer">Términos y Condiciones</button>
+                </div>
+            </div>
+
             <div class="flex space-x-4 text-xl">
                 <a href="https://instagram.com/placidezalvarado" target="_blank" class="hover:text-purple-400 transition hover:scale-110 transform"><i class="fa-brands fa-instagram"></i></a>
                 <a href="https://wa.me/18495710325" target="_blank" class="hover:text-emerald-400 transition hover:scale-110 transform"><i class="fa-brands fa-whatsapp"></i></a>
@@ -427,8 +539,9 @@
         </div>
     </footer>
 
+ 
     <script>
-     
+        // Función para abrir/cerrar el menú en dispositivos móviles
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
             const icon = document.getElementById('menu-icon');
@@ -444,6 +557,34 @@
             }
         }
 
+        // Funciones para controlar las Ventanas Modales
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden'; // Evita el scroll de la página de fondo
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto'; // Restaura el scroll de la página
+            }
+        }
+
+    
+        window.onclick = function(event) {
+            if (event.target.id === 'modal-privacidad') {
+                closeModal('modal-privacidad');
+            }
+            if (event.target.id === 'modal-terminos') {
+                closeModal('modal-terminos');
+            }
+        }
+
+       
         function sendToWhatsApp(event) {
             event.preventDefault();
 
